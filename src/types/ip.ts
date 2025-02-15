@@ -13,4 +13,5 @@ export interface IPInfo {
   isp: string;
   org: string;
   as: string;
+  userAgent: string;
 }
