@@ -8,15 +8,20 @@ export async function GET(request: Request) {
     const headersList = await headers();
     const userAgent = headersList.get('user-agent') || 'Unknown';
 
-    if (!targetIp) {
-      // If no IP provided, get the user's IP
+    let clientIp = headersList.get('x-forwarded-for');
+    if (!clientIp) {
+      // Fallback to ipify if 'x-forwarded-for' is not available
       const ipResponse = await fetch('https://api.ipify.org?format=json');
       const { ip } = await ipResponse.json();
-      const response = await fetch(`http://ip-api.com/json/${ip}`);
+      clientIp = ip;
+    }
+
+    if (!targetIp) {
+      const response = await fetch(`http://ip-api.com/json/${clientIp}`);
       const data = await response.json();
       return NextResponse.json({ 
         ...data, 
-        query: ip,
+        query: clientIp,
         userAgent
       });
     } else {
