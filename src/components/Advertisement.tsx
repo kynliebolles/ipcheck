@@ -12,25 +12,37 @@ interface AdvertisementProps {
 // 设置为 false 来暂时禁用广告
 const SHOW_ADS = false;
 
-export function Advertisement({ slot, width, height }: AdvertisementProps) {
-  // 如果广告被禁用，直接返回 null
-  if (!SHOW_ADS) {
-    return null;
-  }
+interface Window {
+  adsbygoogle: unknown[];
+}
 
+declare global {
+  interface WindowWithAds extends Window {
+    adsbygoogle: unknown[];
+  }
+}
+
+export function Advertisement({ slot, width, height }: AdvertisementProps) {
   const adRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // 只在生产环境中加载广告
+    if (!SHOW_ADS) return;
+
     if (process.env.NODE_ENV === 'production' && adRef.current) {
       try {
-        const adsbygoogle = (window as any).adsbygoogle || [];
-        adsbygoogle.push({});
+        const win = window as unknown as WindowWithAds;
+        win.adsbygoogle = win.adsbygoogle || [];
+        win.adsbygoogle.push({});
       } catch (error) {
         console.error('Error loading advertisement:', error);
       }
     }
   }, []);
+
+  if (!SHOW_ADS) {
+    return null;
+  }
 
   if (process.env.NODE_ENV === 'development') {
     return <AdPlaceholder width={width} height={height} />;
