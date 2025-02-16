@@ -2,5 +2,17 @@
 User-agent: *
 Allow: /
 
+# Allow Adsense crawler
+User-agent: Mediapartners-Google
+Allow: /
+
+# Allow Google Mobile Ads bot
+User-agent: AdsBot-Google-Mobile
+Allow: /
+
+# Allow Google AdSense bot
+User-agent: AdsBot-Google
+Allow: /
+
 # Sitemap
 Sitemap: https://ipcheck.tools/sitemap.xml
