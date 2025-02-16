@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import type { IPInfo } from '@/types/ip';
+import { Advertisement } from '@/components/Advertisement';
 
 // JSON-LD 结构化数据
 function generateStructuredData() {
@@ -159,11 +160,14 @@ export default function Home() {
                 </div>
                 <div className="col-span-2">
                   <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">User Agent</dt>
-                  <dd className="mt-1 text-sm text-gray-900 dark:text-white font-mono break-all">{ipInfo.userAgent}</dd>
+                  <dd className="mt-1 text-sm text-gray-900 dark:text-white break-all">{ipInfo.userAgent}</dd>
                 </div>
               </div>
             </div>
           )}
+          <div className="mt-8">
+            <Advertisement slot="1234567890" width="728px" height="90px" />
+          </div>
         </div>
       </div>
     </>
