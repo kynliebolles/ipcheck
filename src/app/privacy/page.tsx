@@ -33,7 +33,7 @@ export default function PrivacyPolicy() {
             <li>Operating system</li>
             <li>Browsing behavior</li>
           </ul>
-          <p>For more information about Google AdSense, please visit <a href="https://policies.google.com/technologies/ads" className="text-blue-600 dark:text-blue-400 hover:underline">Google's Advertising Policies</a>.</p>
+          <p>For more information about Google AdSense, please visit <a href="https://policies.google.com/technologies/ads" className="text-blue-600 dark:text-blue-400 hover:underline">Google&apos;s Advertising Policies</a>.</p>
 
           <h2 className="text-2xl font-semibold mt-8 mb-4">4. Data Security</h2>
           <p>We implement appropriate security measures to protect your information. However, no method of transmission over the internet is 100% secure.</p>
