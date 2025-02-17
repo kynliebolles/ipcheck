@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+
 import type { IPInfo } from '@/types/ip';
 import { Advertisement } from '@/components/Advertisement';
 
@@ -32,6 +33,8 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [searchIp, setSearchIp] = useState('');
+
+
 
   const fetchIpInfo = async (targetIp?: string) => {
     setLoading(true);

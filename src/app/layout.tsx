@@ -15,6 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://ipcheck.tools'),
   title: "IP Check - Free IP Address Lookup Tool",
   description: "Free IP address lookup tool. Get detailed information about any IP address including location, ISP, timezone, and organization. Check your own IP or lookup any IP address.",
   keywords: "IP lookup, IP checker, IP address details, IP geolocation, IP information, IP address lookup, IP address checker, IP location finder",
@@ -46,6 +47,25 @@ export const metadata: Metadata = {
   },
   verification: {
     google: 'your-google-site-verification-code', // 需要替换成实际的验证码
+  },
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+    other: [
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '32x32',
+        url: '/favicon-32x32.png',
+      },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '16x16',
+        url: '/favicon-16x16.png',
+      },
+    ],
   },
 };
 
