@@ -16,23 +16,30 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ipcheck.tools'),
-  title: "IP Check - Free IP Address Lookup Tool",
-  description: "Free IP address lookup tool. Get detailed information about any IP address including location, ISP, timezone, and organization. Check your own IP or lookup any IP address.",
-  keywords: "IP lookup, IP checker, IP address details, IP geolocation, IP information, IP address lookup, IP address checker, IP location finder",
+  title: "IP Check - Free IP Address Lookup Tool & Network Speed Test",
+  description: "Free IP address lookup and network speed test tools. Get detailed information about any IP address and measure your internet connection speed. No registration required.",
+  keywords: "IP lookup, IP checker, network speed test, internet speed test, bandwidth test, IP geolocation, IP information, IP address lookup, IP address checker, IP location finder",
   authors: [{ name: "IP Check Tool" }],
   creator: "IP Check Tool",
   publisher: "IP Check Tool",
   openGraph: {
-    title: "IP Check - Free IP Address Lookup Tool",
-    description: "Get detailed information about any IP address including location, ISP, timezone, and organization.",
+    title: "IP Check - Free IP Address Lookup Tool & Network Speed Test",
+    description: "Get detailed information about any IP address and measure your internet connection speed with our free online tools.",
     type: "website",
     locale: "en_US",
-    siteName: "IP Check Tool",
+    siteName: "IP Check Tools",
+    images: [{
+      url: 'https://ipcheck.tools/og-image.jpg',
+      width: 1200,
+      height: 630,
+      alt: 'IP Check Tools - IP Lookup and Speed Test'
+    }]
   },
   twitter: {
     card: "summary_large_image",
-    title: "IP Check - Free IP Address Lookup Tool",
-    description: "Get detailed information about any IP address including location, ISP, timezone, and organization.",
+    title: "IP Check - Free IP Address Lookup Tool & Network Speed Test",
+    description: "Get detailed information about any IP address and measure your internet connection speed with our free online tools.",
+    images: ['https://ipcheck.tools/og-image.jpg']
   },
   robots: {
     index: true,
@@ -47,6 +54,9 @@ export const metadata: Metadata = {
   },
   verification: {
     google: 'your-google-site-verification-code', // 需要替换成实际的验证码
+  },
+  alternates: {
+    canonical: 'https://ipcheck.tools'
   },
   icons: {
     icon: '/favicon.ico',

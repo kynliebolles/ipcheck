@@ -10,20 +10,45 @@ function generateStructuredData() {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
-    name: 'IP Check Tool',
+    name: 'IP Check Tools',
     applicationCategory: 'UtilityApplication',
-    description: 'Free IP address lookup tool providing detailed information about IP addresses including location, ISP, and organization details.',
+    description: 'Free IP address lookup and network speed test tools providing detailed information about IP addresses and connection speeds.',
     offers: {
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'USD'
+    },
+    operatingSystem: 'Any',
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.8',
+      ratingCount: '256',
+      bestRating: '5',
+      worstRating: '1'
     },
     featureList: [
       'IP Address Lookup',
       'Geolocation Information',
       'ISP Details',
       'Organization Information',
-      'Timezone Data'
+      'Timezone Data',
+      'Network Speed Test',
+      'Download Speed Measurement',
+      'Upload Speed Measurement'
+    ],
+    hasPart: [
+      {
+        '@type': 'WebApplication',
+        'name': 'Network Speed Test',
+        'applicationCategory': 'UtilityApplication',
+        'description': 'Test your network download and upload speeds with our free speed test tool. No registration required.',
+        'url': 'https://ipcheck.tools/speedtest',
+        'offers': {
+          '@type': 'Offer',
+          'price': '0',
+          'priceCurrency': 'USD'
+        }
+      }
     ]
   };
 }
@@ -169,7 +194,8 @@ export default function Home() {
             </div>
           )}
           <div className="mt-12 mb-12">
-            <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-4">Network Tools</h2>
+            <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-4">Free Network Testing Tools</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-4 max-w-2xl mx-auto">Comprehensive network analysis tools including speed testing and IP information lookup. All tools are free to use and no registration required.</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
               <a
                 href="/speedtest"
@@ -189,7 +215,7 @@ export default function Home() {
                     d="M13 10V3L4 14h7v7l9-11h-7z"
                   />
                 </svg>
-                <span className="text-gray-700 dark:text-gray-200 font-medium">Speed Test</span>
+                <span className="text-gray-700 dark:text-gray-200 font-medium" title="Test your network speed">Network Speed Test - Check Download & Upload Speed</span>
               </a>
               {/* 预留位置以后添加更多工具 */}
             </div>

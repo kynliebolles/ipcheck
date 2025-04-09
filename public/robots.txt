@@ -14,5 +14,13 @@ Allow: /
 User-agent: AdsBot-Google
 Allow: /
 
+# Google Image Crawler
+User-agent: Googlebot-Image
+Allow: /
+
+# Bing Bot
+User-agent: Bingbot
+Allow: /
+
 # Sitemap
 Sitemap: https://ipcheck.tools/sitemap.xml
