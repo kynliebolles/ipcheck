@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
 
     // 这里我们只需要确认接收到数据，不需要实际保存文件
     return NextResponse.json({ success: true })
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Upload failed' },
       { status: 500 }
