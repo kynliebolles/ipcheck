@@ -89,23 +89,12 @@ export default function RootLayout({
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {/* 只加载一次 AdSense 脚本，不使用 enable_page_level_ads */}
         <Script
           id="adsbygoogle-init"
           strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              (adsbygoogle = window.adsbygoogle || []).push({
-                google_ad_client: "ca-pub-4921416661260152",
-                enable_page_level_ads: true
-              });
-            `,
-          }}
-        />
-        <Script
-          async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4921416661260152"
           crossOrigin="anonymous"
-          strategy="afterInteractive"
         />
       </head>
       <body

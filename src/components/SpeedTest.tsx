@@ -77,15 +77,15 @@ export default function SpeedTest() {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <div className="border border-gray-800 rounded-lg p-6 mb-6">
-        <div className="grid grid-cols-2 gap-4 mb-6">
-          <div className="text-center p-4 border border-gray-800 rounded-lg">
-            <div className="text-gray-400 mb-2">Download Speed</div>
-            <div className="text-3xl font-bold">{formatSpeed(downloadSpeed)}</div>
+      <div className="border border-gray-800 rounded-lg p-4 sm:p-6 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-6">
+          <div className="text-center p-3 sm:p-4 border border-gray-800 rounded-lg">
+            <div className="text-gray-400 text-sm sm:text-base mb-1 sm:mb-2">Download Speed</div>
+            <div className="text-2xl sm:text-3xl font-bold">{formatSpeed(downloadSpeed)}</div>
           </div>
-          <div className="text-center p-4 border border-gray-800 rounded-lg">
-            <div className="text-gray-400 mb-2">Upload Speed</div>
-            <div className="text-3xl font-bold">{formatSpeed(uploadSpeed)}</div>
+          <div className="text-center p-3 sm:p-4 border border-gray-800 rounded-lg">
+            <div className="text-gray-400 text-sm sm:text-base mb-1 sm:mb-2">Upload Speed</div>
+            <div className="text-2xl sm:text-3xl font-bold">{formatSpeed(uploadSpeed)}</div>
           </div>
         </div>
         
@@ -101,7 +101,7 @@ export default function SpeedTest() {
         <button
           onClick={startTest}
           disabled={testing}
-          className={`w-full py-3 px-4 rounded-md transition-all ${
+          className={`w-full py-2 sm:py-3 px-3 sm:px-4 text-sm sm:text-base rounded-md transition-all ${
             testing
               ? 'bg-gray-800 text-gray-400 cursor-not-allowed'
               : 'bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl'
@@ -111,9 +111,9 @@ export default function SpeedTest() {
         </button>
       </div>
 
-      <div className="text-gray-400 text-sm">
+      <div className="text-gray-400 text-xs sm:text-sm">
         <h2 className="font-bold mb-2">About Speed Test</h2>
-        <ul className="list-disc pl-5 space-y-1">
+        <ul className="list-disc pl-4 sm:pl-5 space-y-1 sm:space-y-2">
           <li>The test will generate some data traffic. We recommend using a WiFi connection.</li>
           <li>Results may vary depending on network conditions and server load.</li>
           <li>For more accurate results, try running multiple tests and take the average.</li>

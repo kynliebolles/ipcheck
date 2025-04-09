@@ -1,8 +1,49 @@
 'use client';
 
+import Script from 'next/script';
+
+// 创建隐私政策页面的结构化数据
+function generatePrivacyPolicyStructuredData() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Privacy Policy | IP Check Tools',
+    description: 'Privacy policy for IP Check Tools. Learn how we collect, use, and protect your information.',
+    url: 'https://ipcheck.tools/privacy',
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://ipcheck.tools'
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Privacy Policy',
+          item: 'https://ipcheck.tools/privacy'
+        }
+      ]
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'IP Check Tools',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://ipcheck.tools/logo.png'
+      }
+    }
+  };
+}
+
 export default function PrivacyPolicy() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-12 px-4 sm:px-6 lg:px-8">
+      <Script id="privacy-policy-structured-data" type="application/ld+json">
+        {JSON.stringify(generatePrivacyPolicyStructuredData())}
+      </Script>
       <div className="max-w-3xl mx-auto">
         <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-8">Privacy Policy</h1>
         
