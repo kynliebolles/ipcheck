@@ -14,6 +14,19 @@ export default function SpeedTest() {
     return `${speed.toFixed(1)} Mbps`
   }
 
+  const getBroadbandEquivalent = (speed: number | null) => {
+    if (speed === null) return ''
+    
+    if (speed < 1) return 'Slower than basic broadband'
+    if (speed < 5) return 'Equivalent to basic DSL broadband'
+    if (speed < 25) return 'Equivalent to standard broadband (5-25 Mbps)'
+    if (speed < 100) return 'Equivalent to fast broadband (25-100 Mbps)'
+    if (speed < 250) return 'Equivalent to fiber broadband (100-250 Mbps)'
+    if (speed < 500) return 'Equivalent to high-speed fiber (250-500 Mbps)'
+    if (speed < 1000) return 'Equivalent to premium fiber (500-1000 Mbps)'
+    return 'Equivalent to gigabit+ broadband (1 Gbps+)'
+  }
+
   const testDownloadSpeed = async () => {
     const startTime = performance.now()
     const fileSize = 5 * 1024 * 1024 // 5MB test file
@@ -82,10 +95,16 @@ export default function SpeedTest() {
           <div className="text-center p-3 sm:p-4 border border-gray-800 rounded-lg">
             <div className="text-gray-400 text-sm sm:text-base mb-1 sm:mb-2">Download Speed</div>
             <div className="text-2xl sm:text-3xl font-bold">{formatSpeed(downloadSpeed)}</div>
+            {downloadSpeed !== null && (
+              <div className="text-gray-400 text-xs mt-2">{getBroadbandEquivalent(downloadSpeed)}</div>
+            )}
           </div>
           <div className="text-center p-3 sm:p-4 border border-gray-800 rounded-lg">
             <div className="text-gray-400 text-sm sm:text-base mb-1 sm:mb-2">Upload Speed</div>
             <div className="text-2xl sm:text-3xl font-bold">{formatSpeed(uploadSpeed)}</div>
+            {uploadSpeed !== null && (
+              <div className="text-gray-400 text-xs mt-2">{getBroadbandEquivalent(uploadSpeed)}</div>
+            )}
           </div>
         </div>
         
