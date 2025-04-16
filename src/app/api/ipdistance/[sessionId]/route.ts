@@ -35,9 +35,10 @@ async function getIPInfo(ip: string): Promise<IPLocationInfo | null> {
 // Get session info or register IP to session
 export async function GET(
   request: NextRequest,
-  { params }: { params: { sessionId: string } }
+  props: { params: Promise<{ sessionId: string }> }
 ) {
   try {
+    const params = await props.params;
     const sessionId = params.sessionId;
     
     const session = getSession(sessionId);
