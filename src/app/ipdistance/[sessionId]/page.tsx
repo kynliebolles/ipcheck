@@ -26,43 +26,57 @@ export default function IPDistanceSessionPage() {
   const [error, setError] = useState('');
   const sessionId = params.sessionId as string;
 
+  const checkSession = async () => {
+    try {
+      const response = await fetch(`/api/ipdistance/${sessionId}`);
+      
+      if (response.status === 404) {
+        throw new Error('Session not found or expired');
+      }
+      
+      if (response.status === 403) {
+        // This link has already been used by two IPs
+        // Redirect to home page after 5 seconds
+        const data = await response.json();
+        setSessionData(data);
+        setTimeout(() => {
+          router.push('/');
+        }, 5000);
+        return;
+      }
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch session data');
+      }
+      
+      const data = await response.json();
+      setSessionData(data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+    } finally {
+      setLoading(false);
+    }
+  };
+  
   useEffect(() => {
     if (!sessionId) return;
     
-    const checkSession = async () => {
-      try {
-        const response = await fetch(`/api/ipdistance/${sessionId}`);
-        
-        if (response.status === 404) {
-          throw new Error('Session not found or expired');
-        }
-        
-        if (response.status === 403) {
-          // This link has already been used by two IPs
-          // Redirect to home page after 5 seconds
-          const data = await response.json();
-          setSessionData(data);
-          setTimeout(() => {
-            router.push('/');
-          }, 5000);
-          return;
-        }
-        
-        if (!response.ok) {
-          throw new Error('Failed to fetch session data');
-        }
-        
-        const data = await response.json();
-        setSessionData(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred');
-      } finally {
-        setLoading(false);
-      }
-    };
-    
+    // 初次加载时检查会话
     checkSession();
-  }, [sessionId, router]);
+    
+    // 如果是第一位访问者且计算未完成，设置轮询
+    const intervalId = setInterval(() => {
+      if (sessionData?.isFirstVisitor && !sessionData?.isComplete) {
+        checkSession();
+      } else {
+        // 一旦计算完成或不是第一位访问者，清除轮询
+        clearInterval(intervalId);
+      }
+    }, 5000); // 每5秒检查一次状态更新
+    
+    // 组件卸载时清除定时器
+    return () => clearInterval(intervalId);
+  }, [sessionId, router, sessionData?.isFirstVisitor, sessionData?.isComplete]);
 
   const formatTime = (dateString: string) => {
     if (!dateString) return '';
@@ -227,6 +241,9 @@ export default function IPDistanceSessionPage() {
                 </div>
                 <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
                   Your IP has been registered. Once another person visits this link, we will calculate the distance between your locations.
+                </p>
+                <p className="mt-2 text-xs text-gray-500 dark:text-gray-500">
+                  (This page automatically checks for updates every 5 seconds)
                 </p>
               </div>
             </div>

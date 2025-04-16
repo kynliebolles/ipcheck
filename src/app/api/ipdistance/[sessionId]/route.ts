@@ -76,14 +76,30 @@ export async function GET(
       });
     }
     
-    // If this is the same IP as first visitor, just return current state
+    // Check if the calculation is complete (second visitor has accessed)
+    if (session.secondIP && session.distance) {
+      // If calculation is already complete, return full results regardless of visitor
+      return NextResponse.json({
+        message: 'IP distance calculation complete!',
+        sessionId,
+        expiresAt: session.expiresAt,
+        isFirstVisitor: session.firstIP === clientIp,
+        isComplete: true,
+        firstIP: session.firstIPInfo,
+        secondIP: session.secondIPInfo,
+        distance: session.distance,
+        unit: 'km'
+      });
+    }
+    
+    // If this is the same IP as first visitor, but calculation is not complete
     if (session.firstIP === clientIp) {
       return NextResponse.json({
         message: 'You have already visited this link. Share it with someone else.',
         sessionId,
         expiresAt: session.expiresAt,
         isFirstVisitor: true,
-        isComplete: !!session.secondIP
+        isComplete: false
       });
     }
     
