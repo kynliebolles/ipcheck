@@ -3,11 +3,11 @@ import Link from 'next/link'
 import SpeedTest from '../../components/SpeedTest'
 
 export const metadata: Metadata = {
-  title: 'Free Network Speed Test - Check Your Internet Speed | IP Lookup',
+  title: 'Network Speed Test - Check Your Download & Upload Speeds | IP Check Tools',
   description: 'Test your internet connection speed with our free online speed test tool. Measure download and upload speeds instantly. No registration required.',
   keywords: 'speed test, network speed test, internet speed test, bandwidth test, download speed, upload speed, free speed test',
   openGraph: {
-    title: 'Free Network Speed Test - Check Your Internet Speed',
+    title: 'Network Speed Test - Check Your Download & Upload Speeds',
     description: 'Test your internet connection speed with our free online speed test tool. Measure download and upload speeds instantly.',
     type: 'website',
     url: 'https://ipcheck.tools/speedtest',
