@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSession, updateSession, calculateDistance } from '@/lib/db';
-import { IPDistanceSession, IPLocationInfo } from '@/types/ipdistance';
+import { IPLocationInfo } from '@/types/ipdistance';
 
 async function getIPInfo(ip: string): Promise<IPLocationInfo | null> {
   try {
