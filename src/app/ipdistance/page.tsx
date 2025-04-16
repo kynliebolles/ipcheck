@@ -110,7 +110,7 @@ export default function IPDistancePage() {
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
           <h2 className="text-xl font-semibold mb-4">Calculate Distance Between IP Addresses</h2>
           <p className="text-gray-600 dark:text-gray-300 mb-6">
-            Generate a unique link and invite someone else to visit it. We'll automatically calculate the geographical distance between your IP addresses.
+            Generate a unique link and invite someone else to visit it. We&apos;ll automatically calculate the geographical distance between your IP addresses.
           </p>
 
           {!sessionInfo ? (

@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createSession } from '@/lib/db';
 import { CreateSessionResponse } from '@/types/ipdistance';
-import { headers } from 'next/headers';
 
 // Create a new session
 export async function POST(request: Request) {

@@ -54,8 +54,6 @@ export async function GET(
                     request.headers.get('cf-connecting-ip') ||
                     '0.0.0.0';
     
-    let updatedSession: IPDistanceSession | null = null;
-    
     // If this is the first IP for this session
     if (!session.firstIP) {
       const ipInfo = await getIPInfo(clientIp);
@@ -64,7 +62,8 @@ export async function GET(
         return NextResponse.json({ error: 'Failed to get IP information' }, { status: 500 });
       }
       
-      updatedSession = updateSession(sessionId, {
+      // 更新会话，记录第一个IP
+      updateSession(sessionId, {
         firstIP: clientIp,
         firstIPInfo: ipInfo
       });
@@ -105,7 +104,8 @@ export async function GET(
         ipInfo.lon
       );
       
-      updatedSession = updateSession(sessionId, {
+      // 更新会话，记录第二个IP和距离
+      updateSession(sessionId, {
         secondIP: clientIp,
         secondIPInfo: ipInfo,
         distance

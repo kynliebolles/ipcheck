@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 import type { IPInfo } from '@/types/ip';
 import { Advertisement } from '@/components/Advertisement';
@@ -295,7 +296,7 @@ export default function Home() {
             <h2 className="text-lg sm:text-xl font-semibold text-gray-700 dark:text-gray-200 mb-3 sm:mb-4">Free Network Testing Tools</h2>
             <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 max-w-2xl mx-auto">Comprehensive network analysis tools including speed testing and IP information lookup. All tools are free to use and no registration required.</p>
             <div className="grid grid-cols-1 gap-3 sm:gap-4 max-w-2xl mx-auto">
-              <a
+              <Link
                 href="/speedtest"
                 className="flex items-center justify-start sm:justify-center gap-3 p-3 sm:p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow border border-gray-200 dark:border-gray-700"
               >
@@ -314,8 +315,8 @@ export default function Home() {
                   />
                 </svg>
                 <span className="text-gray-700 dark:text-gray-200 font-medium" title="Test your network speed">Network Speed Test - Check Download & Upload Speed</span>
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/ipdistance"
                 className="flex items-center justify-start sm:justify-center gap-3 p-3 sm:p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow border border-gray-200 dark:border-gray-700"
               >
@@ -334,7 +335,7 @@ export default function Home() {
                   />
                 </svg>
                 <span className="text-gray-700 dark:text-gray-200 font-medium" title="Calculate distance between IP addresses">IP Distance - Calculate Geographic Distance Between IPs</span>
-              </a>
+              </Link>
               {/* 预留位置以后添加更多工具 */}
             </div>
           </div>
