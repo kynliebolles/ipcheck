@@ -35,11 +35,9 @@ async function getIPInfo(ip: string): Promise<IPLocationInfo | null> {
 // Get session info or register IP to session
 export async function GET(
   request: NextRequest,
-  context: { params: { sessionId: string } }
+  { params }: { params: { sessionId: string } }
 ) {
   try {
-    // 确保先await params对象
-    const params = await context.params;
     const sessionId = params.sessionId;
     
     const session = getSession(sessionId);
