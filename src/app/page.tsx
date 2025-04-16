@@ -36,7 +36,8 @@ function generateStructuredData() {
       'Timezone Data',
       'Network Speed Test',
       'Download Speed Measurement',
-      'Upload Speed Measurement'
+      'Upload Speed Measurement',
+      'IP Distance Calculator'
     ],
     hasPart: [
       {
@@ -45,6 +46,18 @@ function generateStructuredData() {
         'applicationCategory': 'UtilityApplication',
         'description': 'Test your network download and upload speeds with our free speed test tool. No registration required.',
         'url': 'https://ipcheck.tools/speedtest',
+        'offers': {
+          '@type': 'Offer',
+          'price': '0',
+          'priceCurrency': 'USD'
+        }
+      },
+      {
+        '@type': 'WebApplication',
+        'name': 'IP Distance Calculator',
+        'applicationCategory': 'UtilityApplication',
+        'description': 'Calculate the geographical distance between two IP addresses. Generate a unique link and invite someone to discover the distance between your locations.',
+        'url': 'https://ipcheck.tools/ipdistance',
         'offers': {
           '@type': 'Offer',
           'price': '0',
@@ -117,6 +130,14 @@ function generateStructuredData() {
         acceptedAnswer: {
           '@type': 'Answer',
           text: 'Multiple factors can affect speed test results, including your current network traffic, Wi-Fi signal strength, server load, and the device you are using.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'How does the IP Distance feature work?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Our IP Distance tool creates a unique link that you share with another person. When both of you visit the link, we calculate the geographical distance between your IP locations using geolocation databases and the Haversine formula.'
         }
       }
     ]
@@ -293,6 +314,26 @@ export default function Home() {
                   />
                 </svg>
                 <span className="text-gray-700 dark:text-gray-200 font-medium" title="Test your network speed">Network Speed Test - Check Download & Upload Speed</span>
+              </a>
+              <a
+                href="/ipdistance"
+                className="flex items-center justify-start sm:justify-center gap-3 p-3 sm:p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow border border-gray-200 dark:border-gray-700"
+              >
+                <svg
+                  className="w-6 h-6 text-purple-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
+                  />
+                </svg>
+                <span className="text-gray-700 dark:text-gray-200 font-medium" title="Calculate distance between IP addresses">IP Distance - Calculate Geographic Distance Between IPs</span>
               </a>
               {/* 预留位置以后添加更多工具 */}
             </div>
