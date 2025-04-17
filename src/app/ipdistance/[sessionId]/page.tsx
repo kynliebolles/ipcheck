@@ -59,24 +59,16 @@ export default function IPDistanceSessionPage() {
   };
   
   useEffect(() => {
-    if (!sessionId) return;
+    if (!sessionId || !sessionData?.isFirstVisitor || sessionData?.isComplete) return;
     
-    // 初次加载时检查会话
-    checkSession();
-    
-    // 如果是第一位访问者且计算未完成，设置轮询
+    // 仅在是第一位访问者且计算未完成时设置轮询
     const intervalId = setInterval(() => {
-      if (sessionData?.isFirstVisitor && !sessionData?.isComplete) {
-        checkSession();
-      } else {
-        // 一旦计算完成或不是第一位访问者，清除轮询
-        clearInterval(intervalId);
-      }
+      checkSession();
     }, 5000); // 每5秒检查一次状态更新
     
     // 组件卸载时清除定时器
     return () => clearInterval(intervalId);
-  }, [sessionId, router, sessionData?.isFirstVisitor, sessionData?.isComplete]);
+  }, [sessionId, router, sessionData?.isFirstVisitor, sessionData?.isComplete, checkSession]);
 
   const formatTime = (dateString: string) => {
     if (!dateString) return '';

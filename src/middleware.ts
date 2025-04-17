@@ -30,7 +30,7 @@ function isRedirectLoop(request: NextRequest): boolean {
     if (redirectCount > 5) { // 设置一个合理的阈值
       return true;
     }
-  } catch (e) {
+  } catch (_) { // 使用下划线表示有意忽略的变量
     // 解析 URL 错误，忽略
     return false;
   }

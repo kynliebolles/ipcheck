@@ -2,6 +2,38 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getSession, updateSession, calculateDistance } from '@/lib/db';
 import { IPLocationInfo } from '@/types/ipdistance';
 
+// 定义API响应类型
+interface IpApiResponse {
+  status?: string;
+  lat?: number;
+  lon?: number;
+  city?: string;
+  regionName?: string;
+  country?: string;
+  countryCode?: string;
+  [key: string]: any; // 其他可能的字段
+}
+
+interface IpapiCoResponse {
+  error?: boolean;
+  latitude?: number;
+  longitude?: number;
+  city?: string;
+  region?: string;
+  country_name?: string;
+  country_code?: string;
+  [key: string]: any;
+}
+
+interface IpInfoResponse {
+  error?: any;
+  loc?: string;
+  city?: string;
+  region?: string;
+  country?: string;
+  [key: string]: any;
+}
+
 // 添加重试和备用API支持
 async function getIPInfo(ip: string, retryCount = 0): Promise<IPLocationInfo | null> {
   const maxRetries = 3;
@@ -13,12 +45,12 @@ async function getIPInfo(ip: string, retryCount = 0): Promise<IPLocationInfo | n
         'Accept': 'application/json',
         'User-Agent': 'IPCheck/1.0'
       } as Record<string, string>,
-      transform: (data: any): IPLocationInfo | null => {
+      transform: (data: IpApiResponse): IPLocationInfo | null => {
         if (data.status === 'fail') return null;
         return {
           ip,
-          lat: data.lat,
-          lon: data.lon,
+          lat: data.lat || 0,
+          lon: data.lon || 0,
           city: data.city || 'Unknown',
           regionName: data.regionName || 'Unknown',
           country: data.country || 'Unknown',
@@ -32,12 +64,12 @@ async function getIPInfo(ip: string, retryCount = 0): Promise<IPLocationInfo | n
       headers: {
         'Accept': 'application/json'
       } as Record<string, string>,
-      transform: (data: any): IPLocationInfo | null => {
+      transform: (data: IpapiCoResponse): IPLocationInfo | null => {
         if (data.error) return null;
         return {
           ip,
-          lat: data.latitude,
-          lon: data.longitude,
+          lat: data.latitude || 0,
+          lon: data.longitude || 0,
           city: data.city || 'Unknown',
           regionName: data.region || 'Unknown',
           country: data.country_name || 'Unknown',
@@ -51,14 +83,15 @@ async function getIPInfo(ip: string, retryCount = 0): Promise<IPLocationInfo | n
       headers: {
         'Accept': 'application/json'
       } as Record<string, string>,
-      transform: (data: any): IPLocationInfo | null => {
+      transform: (data: IpInfoResponse): IPLocationInfo | null => {
         if (!data || data.error) return null;
         // 解析坐标（格式为 "lat,lon"）
-        const coords = data.loc ? data.loc.split(',') : [0, 0];
+        const coordStr = data.loc || '0,0';
+        const coords = coordStr.split(',');
         return {
           ip,
-          lat: parseFloat(coords[0]),
-          lon: parseFloat(coords[1]),
+          lat: parseFloat(coords[0] || '0'),
+          lon: parseFloat(coords[1] || '0'),
           city: data.city || 'Unknown',
           regionName: data.region || 'Unknown',
           country: data.country || 'Unknown',

@@ -109,7 +109,7 @@ export default function IPDistanceSessionPage({ params: paramsPromise }: Props) 
     
     // 仅当 sessionId 可用时，检查会话
     checkSession();
-  }, [sessionId]); // 仅依赖于 sessionId
+  }, [sessionId, checkSession]); // 添加checkSession作为依赖项
   
   // 单独的 useEffect 处理轮询
   useEffect(() => {
@@ -122,7 +122,7 @@ export default function IPDistanceSessionPage({ params: paramsPromise }: Props) 
     
     // 组件卸载时清除定时器
     return () => clearInterval(intervalId);
-  }, [sessionId, sessionData?.isFirstVisitor, sessionData?.isComplete]);
+  }, [sessionId, sessionData?.isFirstVisitor, sessionData?.isComplete, checkSession]); // 添加checkSession作为依赖项
 
   const formatTime = (dateString: string) => {
     if (!dateString) return '';

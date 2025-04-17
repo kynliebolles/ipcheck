@@ -106,7 +106,8 @@ export default async function RootLayout({
   let messages;
   try {
     messages = (await import(`@/messages/${locale}.json`)).default;
-  } catch (error) {
+  } catch {
+    // 如果无法加载消息文件，则跳转到404页面
     notFound();
   }
 

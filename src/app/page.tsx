@@ -1,16 +1,18 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { Advertisement } from '@/components/Advertisement';
-
-import type { IPInfo } from '@/types/ip';
+// 移除未使用的导入
+// import Link from 'next/link';
+// import { Advertisement } from '@/components/Advertisement';
+// import type { IPInfo } from '@/types/ip';
 
 // 直接定义支持的语言，避免导入错误
 const locales = ['en', 'zh', 'zh-Hant'];
 const defaultLocale = 'en';
 
 // JSON-LD 结构化数据
+// 注释掉未使用的函数定义
+/* 
 function generateStructuredData() {
   // Web应用结构化数据
   const webApplication = {
@@ -149,6 +151,7 @@ function generateStructuredData() {
 
   return [webApplication, organization, breadcrumb, faq];
 }
+*/
 
 export default function RootPage() {
   // 防止无限重定向循环的状态标志
