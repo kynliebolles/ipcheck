@@ -1,11 +1,13 @@
 'use client'
 
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 
 // Default speed test server
 const DEFAULT_SERVER = { id: 'default', name: 'Default Server', url: '/api/speedtest' }
 
 export default function SpeedTest() {
+  const t = useTranslations('speedtest')
   const [downloadSpeed, setDownloadSpeed] = useState<number | null>(null)
   const [uploadSpeed, setUploadSpeed] = useState<number | null>(null)
   const [testing, setTesting] = useState(false)
@@ -25,14 +27,14 @@ export default function SpeedTest() {
   const getBroadbandEquivalent = (speed: number | null) => {
     if (speed === null) return ''
     
-    if (speed < 1) return 'Slower than basic broadband'
-    if (speed < 5) return 'Equivalent to basic DSL broadband'
-    if (speed < 25) return 'Equivalent to standard broadband (5-25 Mbps)'
-    if (speed < 100) return 'Equivalent to fast broadband (25-100 Mbps)'
-    if (speed < 250) return 'Equivalent to fiber broadband (100-250 Mbps)'
-    if (speed < 500) return 'Equivalent to high-speed fiber (250-500 Mbps)'
-    if (speed < 1000) return 'Equivalent to premium fiber (500-1000 Mbps)'
-    return 'Equivalent to gigabit+ broadband (1 Gbps+)'
+    if (speed < 1) return t('slower_than_basic')
+    if (speed < 5) return t('basic_dsl')
+    if (speed < 25) return t('standard_broadband')
+    if (speed < 100) return t('fast_broadband')
+    if (speed < 250) return t('fiber_broadband')
+    if (speed < 500) return t('high_speed_fiber')
+    if (speed < 1000) return t('premium_fiber')
+    return t('gigabit_plus')
   }
 
   // Test latency
@@ -206,35 +208,35 @@ export default function SpeedTest() {
         {/* Latency display */}
         {pingResult !== null && (
           <div className="text-center mb-4 p-3 border border-gray-800 rounded-lg">
-            <div className="text-gray-400 text-sm mb-1">Latency (Ping)</div>
+            <div className="text-gray-400 text-sm mb-1">{t('latency')}</div>
             <div className="text-xl font-bold">
-              {pingResult < 1000 ? `${Math.round(pingResult)}ms` : 'Timeout'}
+              {pingResult < 1000 ? `${Math.round(pingResult)}ms` : t('timeout')}
             </div>
           </div>
         )}
         
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-6">
           <div className="text-center p-3 sm:p-4 border border-gray-800 rounded-lg">
-            <div className="text-gray-400 text-sm sm:text-base mb-1 sm:mb-2">Download Speed</div>
+            <div className="text-gray-400 text-sm sm:text-base mb-1 sm:mb-2">{t('download_speed')}</div>
             <div className="text-2xl sm:text-3xl font-bold">{formatSpeed(downloadSpeed)}</div>
             {downloadSpeed !== null && (
               <div className="text-gray-400 text-xs mt-2">{getBroadbandEquivalent(downloadSpeed)}</div>
             )}
             {latestResults.download.length > 1 && (
               <div className="text-gray-500 text-xs mt-1">
-                Average: {formatSpeed(getAverageResult('download'))}
+                {t('average')}: {formatSpeed(getAverageResult('download'))}
               </div>
             )}
           </div>
           <div className="text-center p-3 sm:p-4 border border-gray-800 rounded-lg">
-            <div className="text-gray-400 text-sm sm:text-base mb-1 sm:mb-2">Upload Speed</div>
+            <div className="text-gray-400 text-sm sm:text-base mb-1 sm:mb-2">{t('upload_speed')}</div>
             <div className="text-2xl sm:text-3xl font-bold">{formatSpeed(uploadSpeed)}</div>
             {uploadSpeed !== null && (
               <div className="text-gray-400 text-xs mt-2">{getBroadbandEquivalent(uploadSpeed)}</div>
             )}
             {latestResults.upload.length > 1 && (
               <div className="text-gray-500 text-xs mt-1">
-                Average: {formatSpeed(getAverageResult('upload'))}
+                {t('average')}: {formatSpeed(getAverageResult('upload'))}
               </div>
             )}
           </div>
@@ -248,28 +250,24 @@ export default function SpeedTest() {
             ></div>
           </div>
         )}
-
-        <button
-          onClick={startTest}
-          disabled={testing}
-          className={`w-full py-2 sm:py-3 px-3 sm:px-4 text-sm sm:text-base rounded-md transition-all ${
-            testing
-              ? 'bg-gray-800 text-gray-400 cursor-not-allowed'
-              : 'bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl'
-          }`}
-        >
-          {testing ? 'Testing...' : 'Start Test'}
-        </button>
-      </div>
-
-      <div className="text-gray-400 text-xs sm:text-sm">
-        <h2 className="font-bold mb-2">About Speed Test</h2>
-        <ul className="list-disc pl-4 sm:pl-5 space-y-1 sm:space-y-2">
-          <li>This test will generate data traffic. We recommend using a WiFi connection.</li>
-          <li>Results may vary depending on network conditions and server load.</li>
-          <li>For more accurate results, try running multiple tests and take the average.</li>
-          <li>For high-speed connections (&gt;500 Mbps), tests may be limited by browser and JavaScript constraints.</li>
-        </ul>
+        
+        <div className="text-center">
+          <button
+            onClick={startTest}
+            disabled={testing}
+            className={`px-5 py-3 rounded-md text-base font-medium transition duration-150 ${
+              testing
+                ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
+                : 'bg-gray-800 text-white hover:bg-gray-700'
+            }`}
+          >
+            {testing ? t('testing') : t('start_test')}
+          </button>
+        </div>
+        
+        <div className="mt-5 text-xs text-gray-500 text-center">
+          <p>{t('privacy_notice')}</p>
+        </div>
       </div>
     </div>
   )

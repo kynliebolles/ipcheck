@@ -1,0 +1,93 @@
+{
+  "common": {
+    "language": {
+      "en": "English",
+      "zh": "简体中文",
+      "zh-Hant": "繁體中文"
+    },
+    "app": {
+      "title": "IP Check - Free IP Address Lookup Tool & Network Speed Test",
+      "description": "Free IP address lookup and network speed test tools. Get detailed information about any IP address and measure your internet connection speed. No registration required.",
+      "search": "Search",
+      "reset": "Reset",
+      "fetching": "Fetching IP information...",
+      "ipDetails": "IP Details",
+      "ipAddress": "IP Address",
+      "countryRegion": "Country/Region",
+      "city": "City",
+      "region": "Region",
+      "isp": "ISP",
+      "timezone": "Timezone",
+      "coordinates": "Coordinates",
+      "organization": "Organization",
+      "userAgent": "User Agent"
+    },
+    "nav": {
+      "home": "Home",
+      "speedTest": "Speed Test",
+      "ipDistance": "IP Distance",
+      "privacy": "Privacy"
+    },
+    "tools": {
+      "section_title": "Free Network Testing Tools",
+      "section_description": "Comprehensive network analysis tools including speed testing and IP information lookup. All tools are free to use and no registration required.",
+      "speedtest_title": "Network Speed Test - Check Download & Upload Speed",
+      "ipdistance_title": "IP Distance - Calculate Geographic Distance Between IPs"
+    }
+  },
+  "speedtest": {
+    "meta_title": "Network Speed Test - Check Your Download & Upload Speeds | IP Check Tools",
+    "meta_description": "Test your internet connection speed with our free online speed test tool. Measure download and upload speeds instantly. No registration required.",
+    "meta_keywords": "speed test, network speed test, internet speed test, bandwidth test, download speed, upload speed, free speed test",
+    "og_title": "Network Speed Test - Check Your Download & Upload Speeds",
+    "og_description": "Test your internet connection speed with our free online speed test tool. Measure download and upload speeds instantly.",
+    "page_title": "Network Speed Test",
+    "page_description": "Test your internet connection speed with our free online tool. Get accurate measurements of your download and upload speeds.",
+    "back_home": "Home",
+    "start_test": "Start Test",
+    "testing": "Testing...",
+    "latency": "Latency (Ping)",
+    "download_speed": "Download Speed",
+    "upload_speed": "Upload Speed",
+    "average": "Average",
+    "timeout": "Timeout",
+    "slower_than_basic": "Slower than basic broadband",
+    "basic_dsl": "Equivalent to basic DSL broadband",
+    "standard_broadband": "Equivalent to standard broadband (5-25 Mbps)",
+    "fast_broadband": "Equivalent to fast broadband (25-100 Mbps)",
+    "fiber_broadband": "Equivalent to fiber broadband (100-250 Mbps)",
+    "high_speed_fiber": "Equivalent to high-speed fiber (250-500 Mbps)",
+    "premium_fiber": "Equivalent to premium fiber (500-1000 Mbps)",
+    "gigabit_plus": "Equivalent to gigabit+ broadband (1 Gbps+)",
+    "privacy_notice": "This test will generate data traffic. Results may vary depending on network conditions and server load."
+  },
+  "ipDistance": {
+    "title": "IP Distance Calculator - Measure Geographic Distance Between IPs | IP Check Tools",
+    "description": "Calculate the geographical distance between two IP addresses in real-time. See how far apart two internet connections are located.",
+    "keywords": "ipdistance, ip distance result, geographic ip measurement, ip location distance, distance between addresses, ip coordinates distance, location tracker, ip mapping result, how far apart are ips",
+    "ogTitle": "IP Distance Calculator - Measure Geographic Distance Between IPs",
+    "ogDescription": "Calculate the geographical distance between two IP addresses in real-time."
+  },
+  "ipdistance": {
+    "title": "IP Distance Calculator",
+    "back_home": "Home",
+    "calculate_distance": "Calculate Distance Between IP Addresses",
+    "generate_instructions": "Generate a unique link and invite someone else to visit it. We'll automatically calculate the geographical distance between your IP addresses.",
+    "creating_link": "Creating link...",
+    "generate_link": "Generate IP Distance Link",
+    "link_created": "Link Created Successfully!",
+    "link_expires_at": "Link expires at",
+    "copied": "Copied!",
+    "copy": "Copy",
+    "instructions": "Instructions",
+    "instruction1": "Share this link with someone else you want to calculate IP distance with.",
+    "instruction2": "The link is valid for 60 minutes.",
+    "instruction3": "Only the first two unique IP addresses will be recorded.",
+    "instruction4": "Once two different IPs visit the link, the distance will be calculated automatically.",
+    "generate_new_link": "Generate New Link",
+    "about_title": "About IP Distance",
+    "about_description": "The IP Distance tool uses geolocation data from IP addresses to calculate the approximate distance between two internet connections.",
+    "privacy_title": "Privacy Information",
+    "privacy_description": "We only collect IP information to calculate the distance. All session data is automatically deleted after 60 minutes. No permanent records are kept."
+  }
+} 

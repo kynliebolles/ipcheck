@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
+import { locales, defaultLocale } from '@/i18n';
 
 import type { IPInfo } from '@/types/ip';
 import { Advertisement } from '@/components/Advertisement';
@@ -147,204 +149,60 @@ function generateStructuredData() {
   return [webApplication, organization, breadcrumb, faq];
 }
 
-export default function Home() {
-  const [ipInfo, setIpInfo] = useState<IPInfo | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [searchIp, setSearchIp] = useState('');
-
-
-
-  const fetchIpInfo = async (targetIp?: string) => {
-    setLoading(true);
-    setError('');
-    try {
-      const url = targetIp ? `/api/ip?ip=${targetIp}` : '/api/ip';
-      const response = await fetch(url);
-      const data = await response.json();
-      
-      if (data.status === 'fail') {
-        throw new Error(data.message || 'Failed to fetch IP information');
-      }
-      
-      setIpInfo(data);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
-    } finally {
-      setLoading(false);
-    }
-  };
-
+export default function RootPage() {
+  // 防止无限重定向循环的状态标志
+  const [isRedirecting, setIsRedirecting] = useState(false);
+  
   useEffect(() => {
-    fetchIpInfo();
-  }, []);
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchIp.trim()) {
-      fetchIpInfo(searchIp.trim());
+    // 已经在重定向过程中，不再执行重定向逻辑
+    if (isRedirecting) return;
+    
+    // 检查当前URL，如果已经包含语言前缀，则不再重定向
+    const currentPath = window.location.pathname;
+    // 检查是否已经有语言前缀，如/en, /zh, /zh-Hant
+    if (locales.some(locale => currentPath === `/${locale}` || currentPath.startsWith(`/${locale}/`))) {
+      return;
     }
-  };
-
-  const handleReset = () => {
-    setSearchIp('');
-    fetchIpInfo();
-  };
-
+    
+    setIsRedirecting(true);
+    
+    // 获取浏览器语言
+    const navigatorLang = navigator.language.toLowerCase();
+    
+    // 检查是否有完全匹配的区域设置（例如 zh-hant）
+    const fullLocaleMatch = locales.find(l => 
+      l.toLowerCase() === navigatorLang || 
+      l.toLowerCase().replace('-', '') === navigatorLang.replace('-', '')
+    );
+    
+    // 如果有完全匹配，重定向到该区域设置
+    if (fullLocaleMatch) {
+      window.location.href = `/${fullLocaleMatch}${currentPath === '/' ? '' : currentPath}`;
+      return;
+    }
+    
+    // 否则检查是否有部分匹配（例如 'zh-CN' 中的 'zh'）
+    const partialLocaleMatch = locales.find(l => 
+      navigatorLang.startsWith(l.toLowerCase())
+    );
+    
+    // 如果有部分匹配，重定向到该区域设置
+    if (partialLocaleMatch) {
+      window.location.href = `/${partialLocaleMatch}${currentPath === '/' ? '' : currentPath}`;
+      return;
+    }
+    
+    // 默认回退
+    window.location.href = `/${defaultLocale}${currentPath === '/' ? '' : currentPath}`;
+  }, [isRedirecting]);
+  
+  // 简单的加载指示
   return (
-    <>
-      {generateStructuredData().map((schema, index) => (
-        <script
-          key={index}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(schema)
-          }}
-        />
-      ))}
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-8 sm:py-12 px-3 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center">
-            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-2">IP Information</h1>
-            <p className="text-gray-600 dark:text-gray-300 mb-4 sm:mb-6">Check any IP address details</p>
-            
-            <form onSubmit={handleSearch} className="max-w-md mx-auto mb-6 sm:mb-8 flex flex-col sm:flex-row gap-2">
-              <input
-                type="text"
-                value={searchIp}
-                onChange={(e) => setSearchIp(e.target.value)}
-                placeholder="Enter IP address"
-                className="flex-1 px-3 sm:px-4 py-2 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-              />
-              <div className="flex gap-2 sm:flex-shrink-0">
-                <button
-                  type="submit"
-                  className="flex-1 sm:flex-none px-3 sm:px-4 py-2 text-sm sm:text-base bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
-                >
-                  Search
-                </button>
-                <button
-                  type="button"
-                  onClick={handleReset}
-                  className="flex-1 sm:flex-none px-3 sm:px-4 py-2 text-sm sm:text-base bg-gray-600 text-white rounded-lg hover:bg-gray-700 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
-                >
-                  Reset
-                </button>
-              </div>
-            </form>
-          </div>
-
-          {loading && (
-            <div className="mt-8 text-center">
-              <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-blue-600 border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"></div>
-              <p className="mt-2 text-gray-600 dark:text-gray-300">Fetching IP information...</p>
-            </div>
-          )}
-
-          {error && (
-            <div className="mt-6 bg-red-50 dark:bg-red-900/50 border-l-4 border-red-500 p-4">
-              <p className="text-red-700 dark:text-red-200">{error}</p>
-            </div>
-          )}
-
-          {ipInfo && (
-            <div className="mt-8 bg-white dark:bg-gray-800 shadow rounded-lg overflow-hidden">
-              <div className="px-4 sm:px-6 py-4 sm:py-5 border-b border-gray-200 dark:border-gray-700">
-                <h3 className="text-base sm:text-lg font-medium text-gray-900 dark:text-white">IP Details</h3>
-              </div>
-              <div className="px-4 sm:px-6 py-4 sm:py-5 grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2">
-                <div>
-                  <dt className="text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400">IP Address</dt>
-                  <dd className="mt-1 text-sm text-gray-900 dark:text-white break-words">{ipInfo.query}</dd>
-                </div>
-                <div>
-                  <dt className="text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400">Country/Region</dt>
-                  <dd className="mt-1 text-sm text-gray-900 dark:text-white break-words">{ipInfo.country} ({ipInfo.countryCode})</dd>
-                </div>
-                <div>
-                  <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">City</dt>
-                  <dd className="mt-1 text-sm text-gray-900 dark:text-white">{ipInfo.city}</dd>
-                </div>
-                <div>
-                  <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Region</dt>
-                  <dd className="mt-1 text-sm text-gray-900 dark:text-white">{ipInfo.regionName}</dd>
-                </div>
-                <div>
-                  <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">ISP</dt>
-                  <dd className="mt-1 text-sm text-gray-900 dark:text-white">{ipInfo.isp}</dd>
-                </div>
-                <div>
-                  <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Timezone</dt>
-                  <dd className="mt-1 text-sm text-gray-900 dark:text-white">{ipInfo.timezone}</dd>
-                </div>
-                <div>
-                  <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Coordinates</dt>
-                  <dd className="mt-1 text-sm text-gray-900 dark:text-white">{ipInfo.lat}, {ipInfo.lon}</dd>
-                </div>
-                <div>
-                  <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">Organization</dt>
-                  <dd className="mt-1 text-sm text-gray-900 dark:text-white">{ipInfo.org}</dd>
-                </div>
-                <div className="col-span-1 sm:col-span-2">
-                  <dt className="text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400">User Agent</dt>
-                  <dd className="mt-1 text-sm text-gray-900 dark:text-white break-all">{ipInfo.userAgent}</dd>
-                </div>
-              </div>
-            </div>
-          )}
-          <div className="mt-8 sm:mt-12 mb-8 sm:mb-12">
-            <h2 className="text-lg sm:text-xl font-semibold text-gray-700 dark:text-gray-200 mb-3 sm:mb-4">Free Network Testing Tools</h2>
-            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 max-w-2xl mx-auto">Comprehensive network analysis tools including speed testing and IP information lookup. All tools are free to use and no registration required.</p>
-            <div className="grid grid-cols-1 gap-3 sm:gap-4 max-w-2xl mx-auto">
-              <Link
-                href="/speedtest"
-                className="flex items-center justify-start sm:justify-center gap-3 p-3 sm:p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow border border-gray-200 dark:border-gray-700"
-              >
-                <svg
-                  className="w-6 h-6 text-blue-500"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 10V3L4 14h7v7l9-11h-7z"
-                  />
-                </svg>
-                <span className="text-gray-700 dark:text-gray-200 font-medium" title="Test your network speed">Network Speed Test - Check Download & Upload Speed</span>
-              </Link>
-              <Link
-                href="/ipdistance"
-                className="flex items-center justify-start sm:justify-center gap-3 p-3 sm:p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow border border-gray-200 dark:border-gray-700"
-              >
-                <svg
-                  className="w-6 h-6 text-purple-500"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
-                  />
-                </svg>
-                <span className="text-gray-700 dark:text-gray-200 font-medium" title="Calculate distance between IP addresses">IP Distance - Calculate Geographic Distance Between IPs</span>
-              </Link>
-              {/* 预留位置以后添加更多工具 */}
-            </div>
-          </div>
-
-          <div className="mt-8">
-            <Advertisement slot="1234567890" width="728px" height="90px" />
-          </div>
-        </div>
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="text-center">
+        <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-blue-600 border-r-transparent"></div>
+        <p className="mt-2 text-gray-600 dark:text-gray-300">Loading...</p>
       </div>
-    </>
+    </div>
   );
 }

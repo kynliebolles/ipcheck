@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from 'next/script';
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
-import { defaultLocale } from "@/i18n";
-import "./globals.css";
+import { notFound } from "next/navigation";
+import { NextIntlClientProvider } from "next-intl";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { locales } from "@/i18n";
+import "../globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -54,7 +57,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: 'your-google-site-verification-code', // 需要替换成实际的验证码
+    google: 'your-google-site-verification-code', // Need to replace with actual verification code
   },
   alternates: {
     canonical: 'https://ipcheck.tools'
@@ -80,10 +83,33 @@ export const metadata: Metadata = {
   },
 };
 
-// 修改后的根布局组件，不再强制服务器端重定向
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export function generateStaticParams() {
+  return locales.map((locale: string) => ({ locale }));
+}
+
+export default async function RootLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  
+  // Validate locale
+  if (!locales.includes(locale)) {
+    notFound();
+  }
+
+  let messages;
+  try {
+    messages = (await import(`@/messages/${locale}.json`)).default;
+  } catch (error) {
+    notFound();
+  }
+
   return (
-    <html lang={defaultLocale}>
+    <html lang={locale}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -94,12 +120,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           crossOrigin="anonymous"
         />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <GoogleAnalytics />
-        {children}
-      </body>
+      <NextIntlClientProvider locale={locale} messages={messages}>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <div className="fixed bottom-4 right-4 z-40">
+            <LanguageSwitcher />
+          </div>
+          <GoogleAnalytics />
+          {children}
+        </body>
+      </NextIntlClientProvider>
     </html>
   );
 }

@@ -1,0 +1,93 @@
+{
+  "common": {
+    "language": {
+      "en": "English",
+      "zh": "简体中文",
+      "zh-Hant": "繁體中文"
+    },
+    "app": {
+      "title": "IP檢測 - 免費IP地址查詢工具和網絡速度測試",
+      "description": "免費IP地址查詢和網絡速度測試工具。獲取任何IP地址的詳細信息並測量您的互聯網連接速度。無需註冊。",
+      "search": "查詢",
+      "reset": "重置",
+      "fetching": "正在獲取IP信息...",
+      "ipDetails": "IP詳情",
+      "ipAddress": "IP地址",
+      "countryRegion": "國家/地區",
+      "city": "城市",
+      "region": "區域",
+      "isp": "互聯網服務提供商",
+      "timezone": "時區",
+      "coordinates": "座標",
+      "organization": "組織",
+      "userAgent": "用戶代理"
+    },
+    "nav": {
+      "home": "首頁",
+      "speedTest": "速度測試",
+      "ipDistance": "IP距離",
+      "privacy": "隱私政策"
+    },
+    "tools": {
+      "section_title": "免費網絡測試工具",
+      "section_description": "全面的網絡分析工具，包括速度測試和IP信息查詢。所有工具均可免費使用，無需註冊。",
+      "speedtest_title": "網絡速度測試 - 檢測下載和上傳速度",
+      "ipdistance_title": "IP距離 - 計算IP地址之間的地理距離"
+    }
+  },
+  "speedtest": {
+    "meta_title": "網絡速度測試 - 檢測您的下載和上傳速度 | IP檢測工具",
+    "meta_description": "使用我們免費的在線速度測試工具測試您的互聯網連接速度。即時測量下載和上傳速度。無需註冊。",
+    "meta_keywords": "速度測試, 網絡速度測試, 互聯網速度測試, 帶寬測試, 下載速度, 上傳速度, 免費速度測試",
+    "og_title": "網絡速度測試 - 檢測您的下載和上傳速度",
+    "og_description": "使用我們免費的在線速度測試工具測試您的互聯網連接速度。即時測量下載和上傳速度。",
+    "page_title": "網絡速度測試",
+    "page_description": "使用我們的免費在線工具測試您的互聯網連接速度。獲取下載和上傳速度的準確測量值。",
+    "back_home": "首頁",
+    "start_test": "開始測試",
+    "testing": "測試中...",
+    "latency": "延遲 (Ping)",
+    "download_speed": "下載速度",
+    "upload_speed": "上傳速度",
+    "average": "平均值",
+    "timeout": "超時",
+    "slower_than_basic": "低於基本寬頻",
+    "basic_dsl": "相當於基本DSL寬頻",
+    "standard_broadband": "相當於標準寬頻 (5-25 Mbps)",
+    "fast_broadband": "相當於快速寬頻 (25-100 Mbps)",
+    "fiber_broadband": "相當於光纖寬頻 (100-250 Mbps)",
+    "high_speed_fiber": "相當於高速光纖 (250-500 Mbps)",
+    "premium_fiber": "相當於高級光纖 (500-1000 Mbps)",
+    "gigabit_plus": "相當於千兆級寬頻 (1 Gbps+)",
+    "privacy_notice": "此測試將產生數據流量。結果可能因網絡狀況和服務器負載而異。"
+  },
+  "ipDistance": {
+    "title": "IP距離計算器 - 測量IP之間的地理距離 | IP檢測工具",
+    "description": "實時計算兩個IP地址之間的地理距離。查看兩個互聯網連接之間相隔多遠。",
+    "keywords": "IP距離, IP距離結果, 地理IP測量, IP位置距離, 地址間距離, IP坐標距離, 位置追蹤器, IP映射結果, IP之間相距多遠",
+    "ogTitle": "IP距離計算器 - 測量IP之間的地理距離",
+    "ogDescription": "實時計算兩個IP地址之間的地理距離。"
+  },
+  "ipdistance": {
+    "title": "IP距離計算器",
+    "back_home": "首頁",
+    "calculate_distance": "計算IP地址之間的距離",
+    "generate_instructions": "生成一個唯一鏈接並邀請其他人訪問它。我們將自動計算您的IP地址之間的地理距離。",
+    "creating_link": "正在創建鏈接...",
+    "generate_link": "生成IP距離鏈接",
+    "link_created": "鏈接創建成功！",
+    "link_expires_at": "鏈接過期時間：",
+    "copied": "已複製！",
+    "copy": "複製",
+    "instructions": "使用說明",
+    "instruction1": "將此鏈接分享給您想要計算IP距離的人。",
+    "instruction2": "鏈接有效期為60分鐘。",
+    "instruction3": "只會記錄前兩個不同的IP地址。",
+    "instruction4": "一旦兩個不同的IP訪問鏈接，將自動計算距離。",
+    "generate_new_link": "生成新鏈接",
+    "about_title": "關於IP距離",
+    "about_description": "IP距離工具使用IP地址的地理位置數據來計算兩個互聯網連接之間的大致距離。",
+    "privacy_title": "隱私信息",
+    "privacy_description": "我們只收集IP信息以計算距離。所有會話數據將在60分鐘後自動刪除。不會保留永久記錄。"
+  }
+} 
