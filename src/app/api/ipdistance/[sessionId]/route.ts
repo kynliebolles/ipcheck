@@ -11,7 +11,7 @@ interface IpApiResponse {
   regionName?: string;
   country?: string;
   countryCode?: string;
-  [key: string]: any; // 其他可能的字段
+  [key: string]: string | number | boolean | undefined; // 其他可能的字段
 }
 
 interface IpapiCoResponse {
@@ -22,16 +22,16 @@ interface IpapiCoResponse {
   region?: string;
   country_name?: string;
   country_code?: string;
-  [key: string]: any;
+  [key: string]: string | number | boolean | undefined;
 }
 
 interface IpInfoResponse {
-  error?: any;
+  error?: { message: string } | string;
   loc?: string;
   city?: string;
   region?: string;
   country?: string;
-  [key: string]: any;
+  [key: string]: string | number | boolean | undefined | { message: string };
 }
 
 // 添加重试和备用API支持

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { IPLocationInfo } from '@/types/ipdistance';
@@ -59,7 +59,7 @@ export default function IPDistanceSessionPage({ params: paramsPromise }: Props) 
     };
   }, [paramsPromise]);
 
-  const checkSession = async () => {
+  const checkSession = useCallback(async () => {
     if (!sessionId) return;
     
     try {
@@ -101,7 +101,7 @@ export default function IPDistanceSessionPage({ params: paramsPromise }: Props) 
     } finally {
       setLoading(false);
     }
-  };
+  }, [sessionId, locale, router]);
   
   // 分离依赖项的 useEffect，专门用于处理 sessionId 变化
   useEffect(() => {

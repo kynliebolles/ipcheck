@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { IPLocationInfo } from '@/types/ipdistance';
@@ -26,7 +26,7 @@ export default function IPDistanceSessionPage() {
   const [error, setError] = useState('');
   const sessionId = params.sessionId as string;
 
-  const checkSession = async () => {
+  const checkSession = useCallback(async () => {
     try {
       const response = await fetch(`/api/ipdistance/${sessionId}`);
       
@@ -56,7 +56,14 @@ export default function IPDistanceSessionPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [sessionId, router]);
+  
+  useEffect(() => {
+    if (!sessionId) return;
+    
+    // Initial session check
+    checkSession();
+  }, [sessionId, checkSession]);
   
   useEffect(() => {
     if (!sessionId || !sessionData?.isFirstVisitor || sessionData?.isComplete) return;
@@ -68,7 +75,7 @@ export default function IPDistanceSessionPage() {
     
     // 组件卸载时清除定时器
     return () => clearInterval(intervalId);
-  }, [sessionId, router, sessionData?.isFirstVisitor, sessionData?.isComplete, checkSession]);
+  }, [sessionId, sessionData?.isFirstVisitor, sessionData?.isComplete, checkSession]);
 
   const formatTime = (dateString: string) => {
     if (!dateString) return '';
