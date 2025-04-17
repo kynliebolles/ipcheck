@@ -1,6 +1,9 @@
 import createMiddleware from 'next-intl/middleware';
 import { NextRequest, NextResponse } from 'next/server';
-import { locales, defaultLocale } from './i18n';
+
+// 直接定义语言，不再从i18n导入，避免循环依赖
+const locales = ['en', 'zh', 'zh-Hant'];
+const defaultLocale = 'en';
 
 // 防止无限重定向循环的检测函数
 function isRedirectLoop(request: NextRequest): boolean {
@@ -74,6 +77,9 @@ export default function middleware(request: NextRequest) {
   
   return response;
 }
+
+// Export locales for other files to use
+export { locales, defaultLocale };
 
 // Match all paths except for
 // - API routes (/api/*)

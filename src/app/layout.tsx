@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from 'next/script';
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
-import { defaultLocale } from "@/i18n";
 import "./globals.css";
+
+// 直接定义默认语言
+const defaultLocale = 'en';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

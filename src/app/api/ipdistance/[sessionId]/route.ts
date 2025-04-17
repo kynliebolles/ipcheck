@@ -2,32 +2,126 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getSession, updateSession, calculateDistance } from '@/lib/db';
 import { IPLocationInfo } from '@/types/ipdistance';
 
-async function getIPInfo(ip: string): Promise<IPLocationInfo | null> {
-  try {
-    const response = await fetch(`http://ip-api.com/json/${ip}`, {
+// 添加重试和备用API支持
+async function getIPInfo(ip: string, retryCount = 0): Promise<IPLocationInfo | null> {
+  const maxRetries = 3;
+  const ipApis = [
+    // 主要API
+    {
+      url: `http://ip-api.com/json/${ip}`,
       headers: {
         'Accept': 'application/json',
         'User-Agent': 'IPCheck/1.0'
+      } as Record<string, string>,
+      transform: (data: any): IPLocationInfo | null => {
+        if (data.status === 'fail') return null;
+        return {
+          ip,
+          lat: data.lat,
+          lon: data.lon,
+          city: data.city || 'Unknown',
+          regionName: data.regionName || 'Unknown',
+          country: data.country || 'Unknown',
+          countryCode: data.countryCode || 'XX'
+        };
       }
+    },
+    // 备用API 1
+    {
+      url: `https://ipapi.co/${ip}/json/`,
+      headers: {
+        'Accept': 'application/json'
+      } as Record<string, string>,
+      transform: (data: any): IPLocationInfo | null => {
+        if (data.error) return null;
+        return {
+          ip,
+          lat: data.latitude,
+          lon: data.longitude,
+          city: data.city || 'Unknown',
+          regionName: data.region || 'Unknown',
+          country: data.country_name || 'Unknown',
+          countryCode: data.country_code || 'XX'
+        };
+      }
+    },
+    // 备用API 2 - ipinfo.io（注意：有请求限制）
+    {
+      url: `https://ipinfo.io/${ip}/json`,
+      headers: {
+        'Accept': 'application/json'
+      } as Record<string, string>,
+      transform: (data: any): IPLocationInfo | null => {
+        if (!data || data.error) return null;
+        // 解析坐标（格式为 "lat,lon"）
+        const coords = data.loc ? data.loc.split(',') : [0, 0];
+        return {
+          ip,
+          lat: parseFloat(coords[0]),
+          lon: parseFloat(coords[1]),
+          city: data.city || 'Unknown',
+          regionName: data.region || 'Unknown',
+          country: data.country || 'Unknown',
+          countryCode: data.country || 'XX'
+        };
+      }
+    }
+  ];
+
+  try {
+    // 使用当前重试计数选择API
+    const apiIndex = retryCount % ipApis.length;
+    const api = ipApis[apiIndex];
+    
+    console.log(`Fetching IP info for ${ip} using API ${apiIndex + 1}, attempt ${retryCount + 1}`);
+    
+    // 添加超时控制
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+    
+    const response = await fetch(api.url, {
+      headers: api.headers,
+      signal: controller.signal
     });
     
-    const data = await response.json();
+    clearTimeout(timeoutId);
     
-    if (data.status === 'fail') {
-      return null;
+    if (!response.ok) {
+      throw new Error(`API response error: ${response.status}`);
     }
     
-    return {
-      ip,
-      lat: data.lat,
-      lon: data.lon,
-      city: data.city,
-      regionName: data.regionName,
-      country: data.country,
-      countryCode: data.countryCode
-    };
+    const data = await response.json();
+    const ipInfo = api.transform(data);
+    
+    // 如果获取到有效的IP信息，返回
+    if (ipInfo && ipInfo.lat && ipInfo.lon) {
+      return ipInfo;
+    }
+    
+    throw new Error('Invalid IP information received');
   } catch (error) {
-    console.error('Error fetching IP information:', error);
+    console.error(`Error fetching IP information (attempt ${retryCount + 1}):`, error);
+    
+    // 如果还有重试次数，尝试重试
+    if (retryCount < maxRetries) {
+      console.log(`Retrying with different API (${retryCount + 1}/${maxRetries})...`);
+      return getIPInfo(ip, retryCount + 1);
+    }
+    
+    // 失败次数过多，返回模拟数据（仅用于开发/测试）
+    if (process.env.NODE_ENV === 'development') {
+      console.warn('All IP APIs failed, using fallback mock data');
+      return {
+        ip,
+        lat: Math.random() * 180 - 90,  // 随机纬度
+        lon: Math.random() * 360 - 180, // 随机经度
+        city: 'Unknown City',
+        regionName: 'Unknown Region',
+        country: 'Unknown Country',
+        countryCode: 'XX'
+      };
+    }
+    
     return null;
   }
 }
@@ -53,11 +147,16 @@ export async function GET(
                     request.headers.get('cf-connecting-ip') ||
                     '0.0.0.0';
     
+    console.log(`Processing request for session: ${sessionId}, client IP: ${clientIp}`);
+    
     // If this is the first IP for this session
     if (!session.firstIP) {
+      console.log(`Recording first visitor (${clientIp}) for session ${sessionId}`);
+      
       const ipInfo = await getIPInfo(clientIp);
       
       if (!ipInfo) {
+        console.error(`Failed to get IP information for ${clientIp}`);
         return NextResponse.json({ error: 'Failed to get IP information' }, { status: 500 });
       }
       
@@ -66,6 +165,8 @@ export async function GET(
         firstIP: clientIp,
         firstIPInfo: ipInfo
       });
+      
+      console.log(`First visitor recorded successfully: ${ipInfo.city}, ${ipInfo.country}`);
       
       return NextResponse.json({
         message: 'You are the first visitor. Share this link with someone else to see the IP distance.',
@@ -105,11 +206,16 @@ export async function GET(
     
     // If this is the second visitor and not already recorded
     if (!session.secondIP) {
+      console.log(`Recording second visitor (${clientIp}) for session ${sessionId}`);
+      
       const ipInfo = await getIPInfo(clientIp);
       
       if (!ipInfo) {
+        console.error(`Failed to get IP information for ${clientIp}`);
         return NextResponse.json({ error: 'Failed to get IP information' }, { status: 500 });
       }
+      
+      console.log(`Second visitor recorded successfully: ${ipInfo.city}, ${ipInfo.country}`);
       
       // Calculate distance between IPs
       const distance = calculateDistance(
@@ -118,6 +224,8 @@ export async function GET(
         ipInfo.lat,
         ipInfo.lon
       );
+      
+      console.log(`Distance calculated: ${distance} km`);
       
       // 更新会话，记录第二个IP和距离
       updateSession(sessionId, {

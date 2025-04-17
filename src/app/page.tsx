@@ -2,12 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
-import { locales, defaultLocale } from '@/i18n';
-
-import type { IPInfo } from '@/types/ip';
 import { Advertisement } from '@/components/Advertisement';
 
+import type { IPInfo } from '@/types/ip';
+
+// 直接定义支持的语言，避免导入错误
+const locales = ['en', 'zh', 'zh-Hant'];
+const defaultLocale = 'en';
 
 // JSON-LD 结构化数据
 function generateStructuredData() {

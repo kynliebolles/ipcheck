@@ -5,8 +5,10 @@ import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import { locales } from "@/i18n";
 import "../globals.css";
+
+// 直接定义支持的语言，避免导入错误
+const locales = ['en', 'zh', 'zh-Hant'];
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

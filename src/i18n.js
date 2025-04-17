@@ -1,6 +1,9 @@
 import { getRequestConfig } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { locales } from './middleware';
+
+// 直接定义支持的语言，避免循环导入
+export const locales = ['en', 'zh', 'zh-Hant'];
+export const defaultLocale = 'en';
 
 export default getRequestConfig(async ({ locale }) => {
   // Validate that the incoming locale is supported
