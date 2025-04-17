@@ -88,6 +88,34 @@
     "about_title": "關於IP距離",
     "about_description": "IP距離工具使用IP地址的地理位置數據來計算兩個互聯網連接之間的大致距離。",
     "privacy_title": "隱私信息",
-    "privacy_description": "我們只收集IP信息以計算距離。所有會話數據將在60分鐘後自動刪除。不會保留永久記錄。"
+    "privacy_description": "我們只收集IP信息以計算距離。所有會話數據將在60分鐘後自動刪除。不會保留永久記錄。",
+    
+    "session_title": "IP距離計算",
+    "session_description": "與他人分享此鏈接以計算您的IP位置之間的距離。",
+    "already_visited": "您已經訪問過此鏈接。請將其分享給其他人。",
+    "session_expires_at": "會話過期時間：",
+    "share_heading": "與他人分享此頁面：",
+    "status_heading": "狀態：",
+    "waiting_for_visitor": "正在等待另一位訪問者計算距離...",
+    "ip_registered": "您的IP已註冊。一旦其他人訪問此鏈接，我們將計算您們位置之間的距離。",
+    "auto_updates": "（此頁面每5秒自動檢查更新）",
+    "back_to_ipdistance": "返回IP距離計算",
+    
+    "results_title": "IP距離結果",
+    "results_description": "兩個IP地址之間的距離已計算完成。",
+    "distance_label": "距離：",
+    "ip1_location": "IP #1 位置",
+    "ip2_location": "IP #2 位置",
+    "ip_label": "IP：",
+    "city_label": "城市：",
+    "region_label": "區域：",
+    "country_label": "國家：",
+    "coordinates_label": "座標：",
+    "calculate_another": "計算另一個距離",
+    "distance_calculated_using": "IP距離是使用Haversine公式根據IP地址的近似位置計算的。",
+    
+    "calculating_title": "計算IP地址之間的距離...",
+    "processing_request": "正在處理您的請求...",
+    "please_wait": "請等待，我們正在計算IP地址之間的距離。此過程是自動的，應該在幾秒鐘內完成。"
   }
 } 

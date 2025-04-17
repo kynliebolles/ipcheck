@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { IPLocationInfo } from '@/types/ipdistance';
 import Script from 'next/script';
+import { useTranslations } from 'next-intl';
 
 interface SessionResponse {
   message: string;
@@ -29,6 +30,7 @@ export default function IPDistanceSessionPage({ params: paramsPromise }: Props) 
   const [error, setError] = useState('');
   const [sessionId, setSessionId] = useState<string>('');
   const [locale, setLocale] = useState<string>('en'); // 默认语言设置为 'en'
+  const t = useTranslations('ipdistance');
   
   // 使用useEffect来等待params Promise解析
   useEffect(() => {
@@ -179,7 +181,7 @@ export default function IPDistanceSessionPage({ params: paramsPromise }: Props) 
               href={`/${locale}/ipdistance`}
               className="inline-block px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-md text-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
             >
-              Back to IP Distance
+              {t('back_to_ipdistance')}
             </Link>
           </div>
         </div>
@@ -206,38 +208,38 @@ export default function IPDistanceSessionPage({ params: paramsPromise }: Props) 
         />
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-8">
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">IP Distance Results</h1>
-            <p className="text-gray-600 dark:text-gray-300">The distance between the two IP addresses has been calculated.</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">{t('results_title')}</h1>
+            <p className="text-gray-600 dark:text-gray-300">{t('results_description')}</p>
           </div>
           
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
             <div className="bg-gradient-to-r from-blue-500 to-purple-500 px-6 py-4">
               <h2 className="text-white text-xl font-bold text-center">
-                Distance: {formatDistance(sessionData.distance)}
+                {t('distance_label')} {formatDistance(sessionData.distance)}
               </h2>
             </div>
             
             <div className="p-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="border border-gray-200 dark:border-gray-700 rounded-md p-4">
-                  <h3 className="font-medium text-lg mb-3 text-gray-900 dark:text-white">IP #1 Location</h3>
+                  <h3 className="font-medium text-lg mb-3 text-gray-900 dark:text-white">{t('ip1_location')}</h3>
                   <div className="space-y-2 text-gray-700 dark:text-gray-300">
-                    <p><span className="font-medium">IP:</span> {sessionData.firstIP.ip}</p>
-                    <p><span className="font-medium">City:</span> {sessionData.firstIP.city}</p>
-                    <p><span className="font-medium">Region:</span> {sessionData.firstIP.regionName}</p>
-                    <p><span className="font-medium">Country:</span> {sessionData.firstIP.country} ({sessionData.firstIP.countryCode})</p>
-                    <p><span className="font-medium">Coordinates:</span> {sessionData.firstIP.lat}, {sessionData.firstIP.lon}</p>
+                    <p><span className="font-medium">{t('ip_label')}</span> {sessionData.firstIP.ip}</p>
+                    <p><span className="font-medium">{t('city_label')}</span> {sessionData.firstIP.city}</p>
+                    <p><span className="font-medium">{t('region_label')}</span> {sessionData.firstIP.regionName}</p>
+                    <p><span className="font-medium">{t('country_label')}</span> {sessionData.firstIP.country} ({sessionData.firstIP.countryCode})</p>
+                    <p><span className="font-medium">{t('coordinates_label')}</span> {sessionData.firstIP.lat}, {sessionData.firstIP.lon}</p>
                   </div>
                 </div>
                 
                 <div className="border border-gray-200 dark:border-gray-700 rounded-md p-4">
-                  <h3 className="font-medium text-lg mb-3 text-gray-900 dark:text-white">IP #2 Location</h3>
+                  <h3 className="font-medium text-lg mb-3 text-gray-900 dark:text-white">{t('ip2_location')}</h3>
                   <div className="space-y-2 text-gray-700 dark:text-gray-300">
-                    <p><span className="font-medium">IP:</span> {sessionData.secondIP.ip}</p>
-                    <p><span className="font-medium">City:</span> {sessionData.secondIP.city}</p>
-                    <p><span className="font-medium">Region:</span> {sessionData.secondIP.regionName}</p>
-                    <p><span className="font-medium">Country:</span> {sessionData.secondIP.country} ({sessionData.secondIP.countryCode})</p>
-                    <p><span className="font-medium">Coordinates:</span> {sessionData.secondIP.lat}, {sessionData.secondIP.lon}</p>
+                    <p><span className="font-medium">{t('ip_label')}</span> {sessionData.secondIP.ip}</p>
+                    <p><span className="font-medium">{t('city_label')}</span> {sessionData.secondIP.city}</p>
+                    <p><span className="font-medium">{t('region_label')}</span> {sessionData.secondIP.regionName}</p>
+                    <p><span className="font-medium">{t('country_label')}</span> {sessionData.secondIP.country} ({sessionData.secondIP.countryCode})</p>
+                    <p><span className="font-medium">{t('coordinates_label')}</span> {sessionData.secondIP.lat}, {sessionData.secondIP.lon}</p>
                   </div>
                 </div>
               </div>
@@ -247,15 +249,15 @@ export default function IPDistanceSessionPage({ params: paramsPromise }: Props) 
                   href={`/${locale}/ipdistance`}
                   className="inline-block px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-md text-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
                 >
-                  Calculate Another Distance
+                  {t('calculate_another')}
                 </Link>
               </div>
             </div>
           </div>
           
           <div className="mt-6 text-center text-gray-500 dark:text-gray-400 text-sm">
-            <p>Session expires at {formatTime(sessionData.expiresAt)}</p>
-            <p className="mt-1">IP distance is calculated using the Haversine formula based on the approximate locations of the IP addresses.</p>
+            <p>{t('session_expires_at')} {formatTime(sessionData.expiresAt)}</p>
+            <p className="mt-1">{t('distance_calculated_using')}</p>
           </div>
         </div>
       </div>
@@ -268,21 +270,21 @@ export default function IPDistanceSessionPage({ params: paramsPromise }: Props) 
       <div className="min-h-screen p-4 md:p-8">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-8">
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">IP Distance Calculation</h1>
-            <p className="text-gray-600 dark:text-gray-300">Share this link with someone to calculate the distance between your IP locations.</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">{t('session_title')}</h1>
+            <p className="text-gray-600 dark:text-gray-300">{t('session_description')}</p>
           </div>
           
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
             <div className="p-4 bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800 rounded-md mb-6">
               <p className="text-blue-800 dark:text-blue-200 font-medium">{sessionData.message}</p>
               <p className="text-blue-700 dark:text-blue-300 text-sm mt-1">
-                Session expires at {formatTime(sessionData.expiresAt)}
+                {t('session_expires_at')} {formatTime(sessionData.expiresAt)}
               </p>
             </div>
             
             <div className="space-y-4">
               <div className="space-y-2">
-                <h3 className="font-medium">Share this page with another person:</h3>
+                <h3 className="font-medium">{t('share_heading')}</h3>
                 <div className="border border-gray-300 dark:border-gray-700 rounded-md flex overflow-hidden">
                   <input
                     type="text"
@@ -296,22 +298,22 @@ export default function IPDistanceSessionPage({ params: paramsPromise }: Props) 
                     }}
                     className="px-4 font-medium bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white"
                   >
-                    Copy
+                    {t('copy')}
                   </button>
                 </div>
               </div>
               
               <div className="mt-6">
-                <h3 className="font-medium mb-2">Status:</h3>
+                <h3 className="font-medium mb-2">{t('status_heading')}</h3>
                 <div className="flex items-center space-x-2 text-gray-700 dark:text-gray-300">
                   <div className="w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
-                  <span>Waiting for another visitor to calculate distance...</span>
+                  <span>{t('waiting_for_visitor')}</span>
                 </div>
                 <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                  Your IP has been registered. Once another person visits this link, we will calculate the distance between your locations.
+                  {t('ip_registered')}
                 </p>
                 <p className="mt-2 text-xs text-gray-500 dark:text-gray-500">
-                  (This page automatically checks for updates every 5 seconds)
+                  {t('auto_updates')}
                 </p>
               </div>
             </div>
@@ -322,7 +324,7 @@ export default function IPDistanceSessionPage({ params: paramsPromise }: Props) 
               href={`/${locale}/ipdistance`}
               className="inline-block px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-md text-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
             >
-              Back to IP Distance
+              {t('back_to_ipdistance')}
             </Link>
           </div>
         </div>
@@ -335,13 +337,13 @@ export default function IPDistanceSessionPage({ params: paramsPromise }: Props) 
     <div className="min-h-screen p-4 md:p-8">
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">IP Distance Calculation</h1>
-          <p className="text-gray-600 dark:text-gray-300">Calculating the distance between IP addresses...</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">{t('calculating_title')}</h1>
+          <p className="text-gray-600 dark:text-gray-300">{t('session_description')}</p>
         </div>
         
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
           <div className="p-4 bg-green-50 dark:bg-green-900/30 border border-green-100 dark:border-green-800 rounded-md mb-6">
-            <p className="text-green-800 dark:text-green-200 font-medium">{sessionData?.message || 'Processing your request...'}</p>
+            <p className="text-green-800 dark:text-green-200 font-medium">{sessionData?.message || t('processing_request')}</p>
           </div>
           
           <div className="flex justify-center my-6">
@@ -349,7 +351,7 @@ export default function IPDistanceSessionPage({ params: paramsPromise }: Props) 
           </div>
           
           <p className="text-center text-gray-600 dark:text-gray-400">
-            Please wait while we calculate the distance between the IP addresses. This process is automatic and should complete within a few seconds.
+            {t('please_wait')}
           </p>
         </div>
 
@@ -358,7 +360,7 @@ export default function IPDistanceSessionPage({ params: paramsPromise }: Props) 
             href={`/${locale}/ipdistance`}
             className="inline-block px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-md text-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
           >
-            Back to IP Distance
+            {t('back_to_ipdistance')}
           </Link>
         </div>
       </div>
