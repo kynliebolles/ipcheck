@@ -12,6 +12,9 @@ export async function generateMetadata({
     title: t('title'),
     description: t('description'),
     keywords: t('keywords'),
+    alternates: {
+      canonical: `https://ipcheck.tools/${params.locale}/ipdistance`
+    },
     openGraph: {
       title: t('ogTitle'),
       description: t('ogDescription'),

@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: 'https://ipcheck.tools/speedtest',
     },
     alternates: {
-      canonical: 'https://ipcheck.tools/speedtest'
+      canonical: `https://ipcheck.tools/${locale}/speedtest`
     }
   }
 }
