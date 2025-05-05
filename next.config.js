@@ -17,6 +17,22 @@ const nextConfig = {
   images: {
     domains: [],
   },
+  // 强制将 HTTP 重定向到 HTTPS
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'ipcheck.tools',
+          },
+        ],
+        destination: 'https://ipcheck.tools/:path*',
+        permanent: true,
+      },
+    ];
+  },
 }
 
 module.exports = withNextIntl(nextConfig); 

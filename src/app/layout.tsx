@@ -89,6 +89,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {/* 规范链接标签，告诉搜索引擎 HTTPS 是首选版本 */}
+        <link rel="canonical" href="https://ipcheck.tools" />
         {/* hreflang links */}
         <link rel="alternate" href="https://ipcheck.tools/en" hrefLang="en" />
         <link rel="alternate" href="https://ipcheck.tools/zh" hrefLang="zh" />
