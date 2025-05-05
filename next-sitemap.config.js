@@ -1,12 +1,12 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
   siteUrl: 'https://ipcheck.tools',
-  generateRobotsTxt: true, // 已有robots.txt，但我们会合并内容
-  sitemapSize: 7000,
+  generateRobotsTxt: false, // 不生成 robots.txt，保留手动编辑的版本
+  generateIndexSitemap: false, // 不生成索引站点地图
+  autoLastmod: false, // 不自动更新 lastmod 时间
+  outDir: './temp-sitemap', // 将生成的文件放在临时目录，不覆盖现有文件
   exclude: [
-    '/.next/*',
-    '/api/*',
-    '/server-sitemap.xml', // 排除动态生成的sitemap
+    '/*', // 排除所有路径，实际上禁用站点地图生成
   ],
   // 禁用默认的 alternateRefs，因为我们需要为每个页面单独定义
   alternateRefs: [],

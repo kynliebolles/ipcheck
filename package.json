@@ -4,9 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "prebuild": "node scripts/preserve-sitemap.js",
     "build": "next build",
-    "postbuild": "next-sitemap && node scripts/restore-sitemap.js",
     "start": "next start",
     "lint": "next lint"
   },
