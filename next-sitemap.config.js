@@ -56,9 +56,6 @@ module.exports = {
     return result;
   },
   robotsTxtOptions: {
-    additionalSitemaps: [
-      'https://ipcheck.tools/server-sitemap.xml', // 可选：如果有动态生成的sitemap
-    ],
     policies: [
       {
         userAgent: '*',

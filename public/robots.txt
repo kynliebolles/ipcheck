@@ -27,4 +27,3 @@ Host: https://ipcheck.tools
 
 # Sitemaps
 Sitemap: https://ipcheck.tools/sitemap.xml
-Sitemap: https://ipcheck.tools/server-sitemap.xml
