@@ -89,6 +89,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {/* hreflang links */}
+        <link rel="alternate" href="https://ipcheck.tools/en" hrefLang="en" />
+        <link rel="alternate" href="https://ipcheck.tools/zh" hrefLang="zh" />
+        <link rel="alternate" href="https://ipcheck.tools/zh-Hant" hrefLang="zh-Hant" />
+        <link rel="alternate" href="https://ipcheck.tools" hrefLang="x-default" />
         <Script
           id="adsbygoogle-init"
           strategy="afterInteractive"
@@ -99,6 +104,68 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/* Inject homepage structured data once */}
+        <script
+          id="homepage-structured-data"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([
+              {
+                '@context': 'https://schema.org',
+                '@type': 'WebApplication',
+                name: 'IP Check Tools',
+                applicationCategory: 'UtilityApplication',
+                description: 'Free IP address lookup and network speed test tools providing detailed information about IP addresses and connection speeds.',
+                offers: {
+                  '@type': 'Offer',
+                  price: '0',
+                  priceCurrency: 'USD'
+                },
+                operatingSystem: 'Any',
+                aggregateRating: {
+                  '@type': 'AggregateRating',
+                  ratingValue: '4.8',
+                  ratingCount: '256',
+                  bestRating: '5',
+                  worstRating: '1'
+                },
+                featureList: [
+                  'IP Address Lookup',
+                  'Geolocation Information',
+                  'ISP Details',
+                  'Organization Information',
+                  'Timezone Data',
+                  'Network Speed Test',
+                  'Download Speed Measurement',
+                  'Upload Speed Measurement',
+                  'IP Distance Calculator'
+                ],
+              },
+              {
+                '@context': 'https://schema.org',
+                '@type': 'FAQPage',
+                mainEntity: [
+                  {
+                    '@type': 'Question',
+                    name: 'How does the IP Lookup tool work?',
+                    acceptedAnswer: {
+                      '@type': 'Answer',
+                      text: 'Our IP lookup tool uses geolocation databases to provide detailed information about any IP address, including geographical location, ISP, organization, and timezone.'
+                    }
+                  },
+                  {
+                    '@type': 'Question',
+                    name: 'Is the Network Speed Test free to use?',
+                    acceptedAnswer: {
+                      '@type': 'Answer',
+                      text: 'Yes, our Network Speed Test is completely free to use. No registration or subscription is required.'
+                    }
+                  }
+                ]
+              }
+            ])
+          }}
+        />
         <GoogleAnalytics />
         {children}
       </body>

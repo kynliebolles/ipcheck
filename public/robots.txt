@@ -1,26 +1,30 @@
-# https://www.robotstxt.org/robotstxt.html
+# *
 User-agent: *
 Allow: /
 
-# Allow Adsense crawler
+# Mediapartners-Google
 User-agent: Mediapartners-Google
 Allow: /
 
-# Allow Google Mobile Ads bot
+# AdsBot-Google-Mobile
 User-agent: AdsBot-Google-Mobile
 Allow: /
 
-# Allow Google AdSense bot
+# AdsBot-Google
 User-agent: AdsBot-Google
 Allow: /
 
-# Google Image Crawler
+# Googlebot-Image
 User-agent: Googlebot-Image
 Allow: /
 
-# Bing Bot
+# Bingbot
 User-agent: Bingbot
 Allow: /
 
-# Sitemap
+# Host
+Host: https://ipcheck.tools
+
+# Sitemaps
 Sitemap: https://ipcheck.tools/sitemap.xml
+Sitemap: https://ipcheck.tools/server-sitemap.xml

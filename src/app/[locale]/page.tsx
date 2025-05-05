@@ -18,9 +18,21 @@ export async function generateMetadata({
   // 使用对应语言的标题，如果没有则使用英文默认值
   const title = titles[locale as keyof typeof titles] || titles['en'];
   
+  // Add base URL for generating canonical & hreflang links
+  const baseUrl = 'https://ipcheck.tools';
+  
   return {
     title,
     description: "Free IP address lookup and network speed test tools. Get detailed information about any IP address and measure your internet connection speed. No registration required.",
+    // SEO alternates: canonical + hreflang
+    alternates: {
+      canonical: `${baseUrl}/${locale}`,
+      languages: {
+        en: `${baseUrl}/en`,
+        zh: `${baseUrl}/zh`,
+        'zh-Hant': `${baseUrl}/zh-Hant`,
+      },
+    },
   };
 }
 
