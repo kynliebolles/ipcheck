@@ -17,22 +17,14 @@ const nextConfig = {
   images: {
     domains: [],
   },
-  // 强制将 HTTP 重定向到 HTTPS
+  // 注意：HTTP 到 HTTPS 的重定向应该在服务器层面处理（Nginx/Apache/Cloudflare 等）
+  // Next.js 的重定向在应用层面，可能会导致循环
+  // 这里我们移除了重定向配置，避免循环问题
+  /*
   async redirects() {
-    return [
-      {
-        source: '/:path*',
-        has: [
-          {
-            type: 'host',
-            value: 'ipcheck.tools',
-          },
-        ],
-        destination: 'https://ipcheck.tools/:path*',
-        permanent: true,
-      },
-    ];
+    return [];
   },
+  */
 }
 
 module.exports = withNextIntl(nextConfig); 
