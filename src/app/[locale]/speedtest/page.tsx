@@ -19,10 +19,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: t('og_title'),
       description: t('og_description'),
       type: 'website',
-      url: 'https://ipcheck.tools/speedtest',
+      url: `https://ipcheck.tools/${locale}/speedtest`,
+      locale: locale === 'zh' ? 'zh_CN' : locale === 'zh-Hant' ? 'zh_TW' : 'en_US',
     },
     alternates: {
-      canonical: `https://ipcheck.tools/${locale}/speedtest`
+      canonical: `https://ipcheck.tools/${locale}/speedtest`,
+      languages: {
+        'en': 'https://ipcheck.tools/en/speedtest',
+        'zh': 'https://ipcheck.tools/zh/speedtest',
+        'zh-Hant': 'https://ipcheck.tools/zh-Hant/speedtest',
+        'x-default': 'https://ipcheck.tools/en/speedtest'
+      }
+    },
+    robots: {
+      index: true,
+      follow: true,
     }
   }
 }

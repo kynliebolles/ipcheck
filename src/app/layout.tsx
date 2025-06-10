@@ -59,7 +59,13 @@ export const metadata: Metadata = {
     google: 'your-google-site-verification-code', // 需要替换成实际的验证码
   },
   alternates: {
-    canonical: 'https://ipcheck.tools'
+    canonical: 'https://ipcheck.tools/en',
+    languages: {
+      'en': 'https://ipcheck.tools/en',
+      'zh': 'https://ipcheck.tools/zh',
+      'zh-Hant': 'https://ipcheck.tools/zh-Hant',
+      'x-default': 'https://ipcheck.tools/en'
+    }
   },
   icons: {
     icon: '/favicon.ico',
@@ -89,13 +95,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {/* 规范链接标签，告诉搜索引擎 HTTPS 是首选版本 */}
-        <link rel="canonical" href="https://ipcheck.tools" />
+        {/* 规范链接标签，将根路径指向英语版本 */}
+        <link rel="canonical" href="https://ipcheck.tools/en" />
         {/* hreflang links */}
         <link rel="alternate" href="https://ipcheck.tools/en" hrefLang="en" />
         <link rel="alternate" href="https://ipcheck.tools/zh" hrefLang="zh" />
         <link rel="alternate" href="https://ipcheck.tools/zh-Hant" hrefLang="zh-Hant" />
-        <link rel="alternate" href="https://ipcheck.tools" hrefLang="x-default" />
+        <link rel="alternate" href="https://ipcheck.tools/en" hrefLang="x-default" />
         <Script
           id="adsbygoogle-init"
           strategy="afterInteractive"

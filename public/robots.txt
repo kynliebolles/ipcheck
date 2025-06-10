@@ -2,6 +2,28 @@
 User-agent: *
 Allow: /
 
+# 允许抓取所有语言版本
+Allow: /en
+Allow: /en/
+Allow: /zh
+Allow: /zh/
+Allow: /zh-Hant
+Allow: /zh-Hant/
+
+# 允许抓取功能页面
+Allow: /en/speedtest
+Allow: /zh/speedtest
+Allow: /zh-Hant/speedtest
+Allow: /en/ipdistance
+Allow: /zh/ipdistance
+Allow: /zh-Hant/ipdistance
+
+# 不允许抓取API路径
+Disallow: /api/
+
+# 网站地图
+Sitemap: https://ipcheck.tools/sitemap.xml
+
 # Mediapartners-Google
 User-agent: Mediapartners-Google
 Allow: /
@@ -24,6 +46,3 @@ Allow: /
 
 # Host
 Host: https://ipcheck.tools
-
-# Sitemaps
-Sitemap: https://ipcheck.tools/sitemap.xml
