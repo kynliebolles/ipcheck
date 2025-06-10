@@ -34,7 +34,7 @@
     "tools": {
       "section_title": "免費網絡測試工具",
       "section_description": "全面的網絡分析工具，包括速度測試和IP信息查詢。所有工具均可免費使用，無需註冊。",
-      "speedtest_title": "網絡速度測試 - 檢測下載和上傳速度",
+      "speedtest_title": "網絡速度測試 - 檢查下載和上傳速度",
       "ipdistance_title": "IP距離 - 計算IP地址之間的地理距離"
     }
   },
@@ -120,5 +120,35 @@
     "calculating_title": "計算IP地址之間的距離...",
     "processing_request": "正在處理您的請求...",
     "please_wait": "請等待，我們正在計算IP地址之間的距離。此過程是自動的，應該在幾秒鐘內完成。"
+  },
+  "privacy": {
+    "meta_title": "隱私政策 - 我們如何處理您的資料",
+    "meta_description": "IP查詢工具的隱私政策。了解我們在您使用IP查詢和測速服務時如何收集、使用和保護您的資訊。",
+    "title": "隱私政策",
+    "last_updated": "最後更新",
+    "section_1_title": "我們收集的資訊",
+    "section_1_intro": "當您使用我們的IP查詢工具時，我們會收集：",
+    "collect_ip": "您的IP地址",
+    "collect_browser": "瀏覽器用戶代理資訊",
+    "collect_usage": "基本使用統計資訊",
+    "section_2_title": "我們如何使用您的資訊",
+    "section_2_intro": "我們使用收集的資訊來：",
+    "use_provide_service": "提供IP地址詳細資訊和地理位置資訊",
+    "use_improve": "改進我們的服務",
+    "use_analyze": "分析使用模式",
+    "section_3_title": "廣告",
+    "section_3_intro": "我們使用Google AdSense來展示廣告。Google AdSense可能使用cookies和網絡信標來收集資料，包括：",
+    "ads_ip": "您的IP地址",
+    "ads_browser": "瀏覽器類型",
+    "ads_os": "操作系統",
+    "ads_behavior": "瀏覽行為",
+    "google_policy_text": "有關Google AdSense的更多資訊，請訪問",
+    "google_policy_link": "Google的廣告政策",
+    "section_4_title": "資料安全",
+    "section_4_content": "我們實施適當的安全措施來保護您的資訊。但是，通過互聯網傳輸的方法都不是100%安全的。",
+    "section_5_title": "政策變更",
+    "section_5_content": "我們可能會不時更新此隱私政策。我們將通過在此頁面上發布新的隱私政策來通知您任何更改。",
+    "section_6_title": "聯繫我們",
+    "section_6_content": "如果您對此隱私政策有任何疑問，請聯繫我們。"
   }
 } 

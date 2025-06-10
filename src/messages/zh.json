@@ -33,9 +33,9 @@
     },
     "tools": {
       "section_title": "免费网络测试工具",
-      "section_description": "全面的网络分析工具，包括速度测试和IP信息查询。所有工具均可免费使用，无需注册。",
-      "speedtest_title": "网络速度测试 - 检测下载和上传速度",
-      "ipdistance_title": "IP距离 - 计算IP地址之间的地理距离"
+      "section_description": "综合的网络分析工具，包括速度测试和IP信息查询。所有工具均免费使用，无需注册。",
+      "speedtest_title": "网络速度测试 - 检查下载和上传速度",
+      "ipdistance_title": "IP距离 - 计算IP之间的地理距离"
     }
   },
   "speedtest": {
@@ -120,5 +120,35 @@
     "calculating_title": "计算IP地址之间的距离...",
     "processing_request": "正在处理您的请求...",
     "please_wait": "请等待，我们正在计算IP地址之间的距离。此过程是自动的，应该在几秒钟内完成。"
+  },
+  "privacy": {
+    "meta_title": "隐私政策 - 我们如何处理您的数据",
+    "meta_description": "IP查询工具的隐私政策。了解我们在您使用IP查询和测速服务时如何收集、使用和保护您的信息。",
+    "title": "隐私政策",
+    "last_updated": "最后更新",
+    "section_1_title": "我们收集的信息",
+    "section_1_intro": "当您使用我们的IP查询工具时，我们会收集：",
+    "collect_ip": "您的IP地址",
+    "collect_browser": "浏览器用户代理信息",
+    "collect_usage": "基本使用统计信息",
+    "section_2_title": "我们如何使用您的信息",
+    "section_2_intro": "我们使用收集的信息来：",
+    "use_provide_service": "提供IP地址详细信息和地理位置信息",
+    "use_improve": "改进我们的服务",
+    "use_analyze": "分析使用模式",
+    "section_3_title": "广告",
+    "section_3_intro": "我们使用Google AdSense来展示广告。Google AdSense可能使用cookies和网络信标来收集数据，包括：",
+    "ads_ip": "您的IP地址",
+    "ads_browser": "浏览器类型",
+    "ads_os": "操作系统",
+    "ads_behavior": "浏览行为",
+    "google_policy_text": "有关Google AdSense的更多信息，请访问",
+    "google_policy_link": "Google的广告政策",
+    "section_4_title": "数据安全",
+    "section_4_content": "我们实施适当的安全措施来保护您的信息。但是，通过互联网传输的方法都不是100%安全的。",
+    "section_5_title": "政策变更",
+    "section_5_content": "我们可能会不时更新此隐私政策。我们将通过在此页面上发布新的隐私政策来通知您任何更改。",
+    "section_6_title": "联系我们",
+    "section_6_content": "如果您对此隐私政策有任何疑问，请联系我们。"
   }
 } 
