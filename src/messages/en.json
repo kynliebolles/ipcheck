@@ -20,7 +20,10 @@
       "timezone": "Timezone",
       "coordinates": "Coordinates",
       "organization": "Organization",
-      "userAgent": "User Agent"
+      "userAgent": "User Agent",
+      "clearCache": "Clear Browser Cache",
+      "clearCacheSuccess": "Browser cache cleared successfully!",
+      "clearCacheDescription": "Clear your browser's cache to ensure you get the latest version of the website"
     },
     "nav": {
       "home": "Home",

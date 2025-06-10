@@ -20,7 +20,10 @@
       "timezone": "时区",
       "coordinates": "坐标",
       "organization": "组织",
-      "userAgent": "用户代理"
+      "userAgent": "用户代理",
+      "clearCache": "清除浏览器缓存",
+      "clearCacheSuccess": "浏览器缓存清除成功！",
+      "clearCacheDescription": "清除您的浏览器缓存以确保获得网站的最新版本"
     },
     "nav": {
       "home": "首页",

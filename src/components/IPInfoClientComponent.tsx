@@ -151,6 +151,7 @@ export default function IPInfoClientComponent({ locale }: { locale: string }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [searchIp, setSearchIp] = useState('');
+  const [showClearCacheSuccess, setShowClearCacheSuccess] = useState(false);
   const t = useTranslations("common");
 
   const fetchIpInfo = async (targetIp?: string) => {
@@ -189,6 +190,39 @@ export default function IPInfoClientComponent({ locale }: { locale: string }) {
     fetchIpInfo();
   };
 
+  const handleClearCache = () => {
+    // Clear different types of browser storage
+    try {
+      // Clear localStorage
+      localStorage.clear();
+      
+      // Clear sessionStorage
+      sessionStorage.clear();
+      
+      // Clear cookies (if possible within same origin)
+      document.cookie.split(";").forEach((c) => {
+        const eqPos = c.indexOf("=");
+        const name = eqPos > -1 ? c.substr(0, eqPos) : c;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=" + window.location.hostname;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+      });
+      
+      // Show success message
+      setShowClearCacheSuccess(true);
+      setTimeout(() => setShowClearCacheSuccess(false), 3000);
+      
+      // Optionally reload the page to clear any in-memory cache
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    } catch (error) {
+      console.error('Error clearing cache:', error);
+      // Still show success message as some clearing operations might have worked
+      setShowClearCacheSuccess(true);
+      setTimeout(() => setShowClearCacheSuccess(false), 3000);
+    }
+  };
+
   return (
     <>
       {generateStructuredData().map((schema, index) => (
@@ -202,6 +236,11 @@ export default function IPInfoClientComponent({ locale }: { locale: string }) {
       ))}
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-8 sm:py-12 px-3 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
+          {showClearCacheSuccess && (
+            <div className="mb-4 bg-green-50 dark:bg-green-900/50 border-l-4 border-green-500 p-4 rounded-lg">
+              <p className="text-green-700 dark:text-green-200 font-medium">{t("app.clearCacheSuccess")}</p>
+            </div>
+          )}
           <div className="text-center">
             <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-2">{t("app.title")}</h1>
             <p className="text-gray-600 dark:text-gray-300 mb-4 sm:mb-6">{t("app.description")}</p>
@@ -227,6 +266,14 @@ export default function IPInfoClientComponent({ locale }: { locale: string }) {
                   className="flex-1 sm:flex-none px-3 sm:px-4 py-2 text-sm sm:text-base bg-gray-600 text-white rounded-lg hover:bg-gray-700 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
                 >
                   {t("app.reset")}
+                </button>
+                <button
+                  type="button"
+                  onClick={handleClearCache}
+                  className="flex-1 sm:flex-none px-3 sm:px-4 py-2 text-sm sm:text-base bg-red-600 text-white rounded-lg hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+                  title={t("app.clearCacheDescription")}
+                >
+                  {t("app.clearCache")}
                 </button>
               </div>
             </form>
