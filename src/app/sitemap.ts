@@ -25,6 +25,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date() 
     },
     { 
+      path: 'geolocation', 
+      priority: 0.8, 
+      changeFrequency: 'weekly' as const,
+      lastModified: new Date() 
+    },
+    { 
       path: 'privacy', 
       priority: 0.5, 
       changeFrequency: 'monthly' as const,

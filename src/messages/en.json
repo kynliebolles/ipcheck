@@ -35,7 +35,8 @@
       "section_title": "Free Network Testing Tools",
       "section_description": "Comprehensive network analysis tools including speed testing and IP information lookup. All tools are free to use and no registration required.",
       "speedtest_title": "Network Speed Test - Check Download & Upload Speed",
-      "ipdistance_title": "IP Distance - Calculate Geographic Distance Between IPs"
+      "ipdistance_title": "IP Distance - Calculate Geographic Distance Between IPs",
+      "geolocation_title": "Geolocation Tool - Get Your Precise Location"
     }
   },
   "privacy": {
@@ -122,5 +123,48 @@
     "about_description": "The IP Distance tool uses geolocation data from IP addresses to calculate the approximate distance between two internet connections.",
     "privacy_title": "Privacy Information",
     "privacy_description": "We only collect IP information to calculate the distance. All session data is automatically deleted after 60 minutes. No permanent records are kept."
+  },
+  "geolocation": {
+    "meta_title": "Geolocation Tool - Get Your Precise Location | IP Check Tools",
+    "meta_description": "Get your precise geolocation information using GPS or network data. Find your coordinates, address, timezone, and location details instantly.",
+    "meta_keywords": "geolocation, location finder, GPS coordinates, latitude longitude, my location, find my location, location tool, GPS location",
+    "og_title": "Geolocation Tool - Get Your Precise Location",
+    "og_description": "Get your precise geolocation information using GPS or network data. Find your coordinates and address instantly.",
+    "title": "Geolocation Tool",
+    "description": "Get your precise location information using GPS or network data. Find your coordinates, address, and more.",
+    "get_location": "Get My Location",
+    "getting_location": "Getting Location...",
+    "location_info": "Location Information",
+    "coordinates": "Coordinates",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "accuracy": "Accuracy",
+    "altitude": "Altitude",
+    "speed": "Speed",
+    "timestamp": "Timestamp",
+    "meters": "meters",
+    "additional_info": "Additional Information",
+    "address": "Address",
+    "full_address": "Full Address",
+    "country": "Country",
+    "region": "Region/State",
+    "city": "City",
+    "copy": "Copy",
+    "view_on_map": "View on Map",
+    "copy_coordinates": "Copy Coordinates",
+    "geolocation_not_supported": "Geolocation is not supported by this browser.",
+    "permission_denied": "Location access denied by user.",
+    "position_unavailable": "Location information is unavailable.",
+    "timeout": "Location request timed out.",
+    "unknown_error": "An unknown error occurred while retrieving location.",
+    "permission_denied_notice": "Location access has been denied. Please enable location permissions in your browser settings to use this feature.",
+    "how_to_use": "How to Use",
+    "step_1": "Click the 'Get My Location' button to start the location detection process.",
+    "step_2": "Allow location access when prompted by your browser. This is required to get your precise coordinates.",
+    "step_3": "View your location details including coordinates and additional data. You can copy coordinates or view your location on a map.",
+    "back_home": "Home",
+    "timezone": "Timezone",
+    "network_info": "Network Information",
+    "isp": "ISP"
   }
 } 

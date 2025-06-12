@@ -35,7 +35,8 @@
       "section_title": "免费网络测试工具",
       "section_description": "综合的网络分析工具，包括速度测试和IP信息查询。所有工具均免费使用，无需注册。",
       "speedtest_title": "网络速度测试 - 检查下载和上传速度",
-      "ipdistance_title": "IP距离 - 计算IP之间的地理距离"
+      "ipdistance_title": "IP距离 - 计算IP之间的地理距离",
+      "geolocation_title": "地理位置工具 - 获取您的精确位置"
     }
   },
   "speedtest": {
@@ -150,5 +151,48 @@
     "section_5_content": "我们可能会不时更新此隐私政策。我们将通过在此页面上发布新的隐私政策来通知您任何更改。",
     "section_6_title": "联系我们",
     "section_6_content": "如果您对此隐私政策有任何疑问，请联系我们。"
+  },
+  "geolocation": {
+    "meta_title": "地理位置工具 - 获取您的精确位置 | IP检测工具",
+    "meta_description": "使用GPS或网络数据获取您的精确地理位置信息。即时查找您的坐标、地址、时区和位置详情。",
+    "meta_keywords": "地理位置, 位置查找器, GPS坐标, 经纬度, 我的位置, 查找我的位置, 位置工具, GPS位置",
+    "og_title": "地理位置工具 - 获取您的精确位置",
+    "og_description": "使用GPS或网络数据获取您的精确地理位置信息。即时查找您的坐标和地址。",
+    "title": "地理位置工具",
+    "description": "使用GPS或网络数据获取您的精确位置信息。查找您的坐标、地址等信息。",
+    "get_location": "获取我的位置",
+    "getting_location": "正在获取位置...",
+    "location_info": "位置信息",
+    "coordinates": "坐标",
+    "latitude": "纬度",
+    "longitude": "经度",
+    "accuracy": "精确度",
+    "altitude": "海拔",
+    "speed": "速度",
+    "timestamp": "时间戳",
+    "meters": "米",
+    "additional_info": "附加信息",
+    "address": "地址",
+    "full_address": "完整地址",
+    "country": "国家",
+    "region": "地区/省份",
+    "city": "城市",
+    "copy": "复制",
+    "view_on_map": "在地图上查看",
+    "copy_coordinates": "复制坐标",
+    "geolocation_not_supported": "此浏览器不支持地理位置功能。",
+    "permission_denied": "用户拒绝了位置访问权限。",
+    "position_unavailable": "位置信息不可用。",
+    "timeout": "位置请求超时。",
+    "unknown_error": "获取位置时发生未知错误。",
+    "permission_denied_notice": "位置访问已被拒绝。请在浏览器设置中启用位置权限以使用此功能。",
+    "how_to_use": "使用方法",
+    "step_1": "点击「获取我的位置」按钮开始位置检测过程。",
+    "step_2": "当浏览器提示时允许位置访问。这是获取精确坐标所必需的。",
+    "step_3": "查看您的位置详情，包括坐标和其他数据。您可以复制坐标或在地图上查看您的位置。",
+    "back_home": "首页",
+    "timezone": "时区",
+    "network_info": "网络信息",
+    "isp": "ISP"
   }
 } 
