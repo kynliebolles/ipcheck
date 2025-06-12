@@ -43,13 +43,12 @@ export default function GeolocationContent() {
   const checkPermissionStatus = async () => {
     if ('permissions' in navigator) {
       try {
-        const permission = await navigator.permissions.query({ name: 'geolocation' });
+        const permission = await navigator.permissions.query({ name: 'geolocation' as PermissionName });
         setPermissionStatus(permission.state);
-        
         permission.addEventListener('change', () => {
           setPermissionStatus(permission.state);
         });
-      } catch (err) {
+      } catch {
         console.log('Permission API not supported');
       }
     }
@@ -69,12 +68,6 @@ export default function GeolocationContent() {
       setLoading(false);
       return;
     }
-
-    const options = {
-      enableHighAccuracy: true,
-      timeout: 15000,
-      maximumAge: 0
-    };
 
     navigator.geolocation.getCurrentPosition(
       async (position) => {
@@ -99,7 +92,7 @@ export default function GeolocationContent() {
             timezone: addressInfo.timezone,
             isp: addressInfo.isp
           });
-        } catch (err) {
+        } catch {
           // 即使无法获取地址信息，也显示坐标
           setLocationInfo({
             coordinates: locationData
@@ -127,18 +120,21 @@ export default function GeolocationContent() {
         }
         setError(errorMessage);
         setLoading(false);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 15000,
+        maximumAge: 0
       }
     );
   };
-
-
 
   // 复制到剪贴板
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text).then(() => {
       // 可以添加成功提示
-    }).catch(err => {
-      console.error('Failed to copy:', err);
+    }).catch(() => {
+      console.error('Failed to copy');
     });
   };
 
@@ -152,8 +148,32 @@ export default function GeolocationContent() {
   };
 
   // 反向地理编码函数
-  const reverseGeocode = async (lat: number, lng: number) => {
-    const results: any = {};
+  const reverseGeocode = async (lat: number, lng: number): Promise<{
+    address?: {
+      country?: string;
+      region?: string;
+      city?: string;
+      district?: string;
+      street?: string;
+      postcode?: string;
+      formatted?: string;
+    };
+    timezone?: string;
+    isp?: string;
+  }> => {
+    const results: {
+      address?: {
+        country?: string;
+        region?: string;
+        city?: string;
+        district?: string;
+        street?: string;
+        postcode?: string;
+        formatted?: string;
+      };
+      timezone?: string;
+      isp?: string;
+    } = {};
     
     try {
       // 获取地址信息
@@ -374,8 +394,6 @@ export default function GeolocationContent() {
               </div>
             </div>
           )}
-
-
 
           {/* 操作按钮 */}
           <div className="flex flex-col sm:flex-row gap-4">
