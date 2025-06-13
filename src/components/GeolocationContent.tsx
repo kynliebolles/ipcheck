@@ -229,10 +229,10 @@ export default function GeolocationContent() {
     <>
       {/* 页面标题 - 与其他页面保持一致的布局 */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0 mb-6">
-        <h1 className="text-2xl sm:text-3xl font-bold text-white">{t('title')}</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold text-black dark:text-white">{t('title')}</h1>
         <Link 
           href={`/${locale}`}
-          className="flex items-center gap-1 px-3 py-1 text-sm border border-gray-300 dark:border-gray-700 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-white hover:text-black"
+          className="flex items-center gap-1 px-3 py-1 text-sm border border-gray-300 dark:border-gray-700 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-black dark:text-white hover:text-black dark:hover:text-white"
         >
           <svg 
             xmlns="http://www.w3.org/2000/svg" 
